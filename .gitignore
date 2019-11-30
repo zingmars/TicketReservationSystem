@@ -23,3 +23,4 @@ msbuild.wrn
 *.sln.docstates
 project.lock.json
 .DS_Store
+database.db
