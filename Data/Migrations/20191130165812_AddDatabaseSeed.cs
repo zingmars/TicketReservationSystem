@@ -2,7 +2,7 @@
 
 namespace TicketReservationSystem.Data.Migrations
 {
-    public partial class AddSeedDatabase : Migration
+    public partial class AddDatabaseSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

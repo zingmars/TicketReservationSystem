@@ -9,8 +9,8 @@ using TicketReservationSystem.Data;
 namespace TicketReservationSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191130165812_AddSeedDatabase")]
-    partial class AddSeedDatabase
+    [Migration("20191130165812_AddDatabaseSeed")]
+    partial class AddDatabaseSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
