@@ -18,8 +18,11 @@ In project directory:
 
 ### Default credentials
 
-After migrations are applied, log in with "admin@admin.com / Password!123" and change the default admin password.
+After migrations are applied, you can log in with "admin@admin.com / Password!123" and change the default admin password.
 
-## Miscellaneous
+## Running instructions
 
-* To generate pages from models - `dotnet tool install --global dotnet-aspnet-codegenerator`
+Using visual studio code:
+
+* Open the directory using VS Code (File -> Open Folder, or in Explorer (this needs to be enabled when installing VS Code) right click the folder and press "Open with Code").
+* Press f5 (default) or Debug -> Start Debugging to run the app in debug mode.
