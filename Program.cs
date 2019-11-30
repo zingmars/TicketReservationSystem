@@ -1,15 +1,8 @@
-
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using TicketReservationSystem.Data;
-
-// Are these needed?
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace TicketReservationSystem
@@ -31,7 +24,7 @@ namespace TicketReservationSystem
 
                 try
                 {
-                    var context = services.GetRequiredService<UserContext>();
+                    var context = services.GetRequiredService<ApplicationDbContext>();
                     context.Database.EnsureCreated();
                 }
                 catch (Exception ex)
