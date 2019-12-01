@@ -230,7 +230,7 @@ namespace TicketReservationSystem.Migrations
                     Name = table.Column<string>(nullable: true),
                     NormalizedName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Price = table.Column<long>(nullable: true),
+                    Price = table.Column<double>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -296,7 +296,7 @@ namespace TicketReservationSystem.Migrations
                     PurchaseMethodId = table.Column<string>(nullable: false),
                     PerformanceId = table.Column<string>(nullable: false),
                     SeatId = table.Column<long>(nullable: true),
-                    AmountPaid = table.Column<long>(nullable: true),
+                    AmountPaid = table.Column<double>(nullable: true),
                     Purchased = table.Column<string>(nullable: false)
                 },
                 constraints: table =>

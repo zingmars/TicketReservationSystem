@@ -19,7 +19,7 @@ namespace TicketReservationSystem.Models
         public string Name { get; set; }
         public string NormalizedName { get; set; }
         public string Description { get; set; }
-        public long? Price { get; set; }
+        public double? Price { get; set; }
         public string ConcurrencyStamp { get; set; }
 
         public virtual Theatres Theatre { get; set; }

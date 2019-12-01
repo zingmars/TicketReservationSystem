@@ -327,7 +327,7 @@ namespace TicketReservationSystem.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("Price")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("REAL");
 
                     b.Property<string>("TheatreId")
                         .IsRequired()
@@ -376,7 +376,7 @@ namespace TicketReservationSystem.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("AmountPaid")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("REAL");
 
                     b.Property<string>("PerformanceId")
                         .IsRequired()

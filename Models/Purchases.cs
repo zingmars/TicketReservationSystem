@@ -11,7 +11,7 @@ namespace TicketReservationSystem.Models
         public string PurchaseMethodId { get; set; }
         public string PerformanceId { get; set; }
         public long? SeatId { get; set; }
-        public long? AmountPaid { get; set; }
+        public double? AmountPaid { get; set; }
         public string Purchased { get; set; }
 
         public virtual Performances Performance { get; set; }
