@@ -77,6 +77,10 @@ namespace TicketReservationSystem.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
@@ -127,6 +131,8 @@ namespace TicketReservationSystem.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -212,6 +218,243 @@ namespace TicketReservationSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TicketReservationSystem.Models.BusinessHours", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Begins")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("Day")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ends")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TheatreId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TheatreId");
+
+                    b.ToTable("BusinessHours");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.Categories", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("CategoryIndex");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.PerformanceCategories", b =>
+                {
+                    b.Property<string>("PerformanceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PerformanceId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("PerformanceId")
+                        .HasName("IX_PerformanceCategories_Performances");
+
+                    b.ToTable("PerformanceCategories");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.PerformanceDates", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PerformanceId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PerformanceId")
+                        .HasName("IX_PerformanceDates_Performances");
+
+                    b.ToTable("PerformanceDates");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.Performances", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TheatreId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("PerformanceIndex");
+
+                    b.HasIndex("TheatreId");
+
+                    b.ToTable("Performances");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.PurchaseMethods", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("PurchaseMethodIndex");
+
+                    b.ToTable("PurchaseMethods");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.Purchases", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("AmountPaid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PerformanceId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PurchaseMethodId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Purchased")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("SeatId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("PurchaseIndex");
+
+                    b.HasIndex("PerformanceId");
+
+                    b.HasIndex("PurchaseMethodId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.Theatres", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("Seats")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("TheatresIndex");
+
+                    b.ToTable("Theatres");
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.AspNetUsers", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("AspNetUsers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -258,6 +501,69 @@ namespace TicketReservationSystem.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.BusinessHours", b =>
+                {
+                    b.HasOne("TicketReservationSystem.Models.Theatres", "Theatre")
+                        .WithMany("BusinessHours")
+                        .HasForeignKey("TheatreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.PerformanceCategories", b =>
+                {
+                    b.HasOne("TicketReservationSystem.Models.Categories", "Category")
+                        .WithMany("PerformanceCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketReservationSystem.Models.Performances", "Performance")
+                        .WithMany("PerformanceCategories")
+                        .HasForeignKey("PerformanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.PerformanceDates", b =>
+                {
+                    b.HasOne("TicketReservationSystem.Models.Performances", "Performance")
+                        .WithMany("PerformanceDates")
+                        .HasForeignKey("PerformanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.Performances", b =>
+                {
+                    b.HasOne("TicketReservationSystem.Models.Theatres", "Theatre")
+                        .WithMany("Performances")
+                        .HasForeignKey("TheatreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TicketReservationSystem.Models.Purchases", b =>
+                {
+                    b.HasOne("TicketReservationSystem.Models.Performances", "Performance")
+                        .WithMany("Purchases")
+                        .HasForeignKey("PerformanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketReservationSystem.Models.PurchaseMethods", "PurchaseMethod")
+                        .WithMany("Purchases")
+                        .HasForeignKey("PurchaseMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketReservationSystem.Models.AspNetUsers", "User")
+                        .WithMany("Purchases")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

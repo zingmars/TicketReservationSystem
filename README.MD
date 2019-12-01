@@ -26,3 +26,13 @@ Using visual studio code:
 
 * Open the directory using VS Code (File -> Open Folder, or in Explorer (this needs to be enabled when installing VS Code) right click the folder and press "Open with Code").
 * Press f5 (default) or Debug -> Start Debugging to run the app in debug mode.
+
+## Commands for scaffolding
+
+Scaffolding entity type classes and a DbContext class based on a database schema:
+
+`dotnet ef dbcontext scaffold "Data Source=database.db" Microsoft.EntityFrameworkCore.Sqlite --table BusinessHours --table Categories --table Performances --table PerformanceCategories --table Theatres --table PerformanceDates --table PurchaseMethods --table AspNetUsers --table Purchases --context ApplicationDbContext --context-dir Data --output-dir Models --force`
+
+[Detailed documentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding)
+
+:warning: **If you reverse engineer the model from the database again, any changes you've made to the files will be lost.** :warning:
