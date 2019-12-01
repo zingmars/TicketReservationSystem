@@ -15,3 +15,7 @@ jobs:
         dotnet-version: 3.0.101
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: Install dotnet-ef
+      run: dotnet tool install --global dotnet-ef --version 3.0.0
+    - name: Test migrations
+      run: dotnet ef database update
