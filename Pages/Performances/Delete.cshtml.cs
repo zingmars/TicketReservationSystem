@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -27,6 +28,9 @@ namespace TicketReservationSystem.Pages.Performances
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -44,6 +48,9 @@ namespace TicketReservationSystem.Pages.Performances
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
             if (id == null)
             {
                 return NotFound();

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -15,16 +16,19 @@ namespace TicketReservationSystem.Pages.Performances
     public class CreateModel : BasePageModel
     {
         public CreateModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 
         public IActionResult OnGet()
         {
-        ViewData["TheatreId"] = new SelectList(Context.Theatres, "Id", "Name");
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
+            ViewData["TheatreId"] = new SelectList(Context.Theatres, "Id", "Name");
             return Page();
         }
 
@@ -35,6 +39,9 @@ namespace TicketReservationSystem.Pages.Performances
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
             if (!ModelState.IsValid)
             {
                 return Page();
