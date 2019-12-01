@@ -326,7 +326,7 @@ namespace TicketReservationSystem.Migrations
                     b.Property<string>("NormalizedName")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("Price")
+                    b.Property<double?>("Price")
                         .HasColumnType("REAL");
 
                     b.Property<string>("TheatreId")
@@ -375,7 +375,7 @@ namespace TicketReservationSystem.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("AmountPaid")
+                    b.Property<double?>("AmountPaid")
                         .HasColumnType("REAL");
 
                     b.Property<string>("PerformanceId")
@@ -386,8 +386,11 @@ namespace TicketReservationSystem.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Purchased")
+                    b.Property<DateTime>("Purchased")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Edited")
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("SeatId")
@@ -395,6 +398,10 @@ namespace TicketReservationSystem.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

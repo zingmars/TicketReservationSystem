@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -15,18 +16,22 @@ namespace TicketReservationSystem.Pages.Purchases
     public class CreateModel : BasePageModel
     {
         public CreateModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 
         public IActionResult OnGet()
         {
-        ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
-        ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
-        ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "UserName");
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator) && !User.IsInRole(Constants.Cashier))  {
+                return NotFound();
+            }
+
+            ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
+            ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
+            ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "UserName");
             return Page();
         }
 
@@ -37,10 +42,19 @@ namespace TicketReservationSystem.Pages.Purchases
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator) && !User.IsInRole(Constants.Cashier))  {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            
+            Purchases.Id = Guid.NewGuid().ToString();
+            Purchases.ConcurrencyStamp = Guid.NewGuid().ToString();
+            Purchases.Purchased = DateTime.Now;
+            Purchases.Edited = DateTime.Now;
 
             Context.Purchases.Add(Purchases);
             await Context.SaveChangesAsync();

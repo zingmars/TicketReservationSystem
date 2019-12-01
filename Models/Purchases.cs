@@ -12,7 +12,9 @@ namespace TicketReservationSystem.Models
         public string PerformanceId { get; set; }
         public long? SeatId { get; set; }
         public double? AmountPaid { get; set; }
-        public string Purchased { get; set; }
+        public DateTime Purchased { get; set; }
+        public DateTime Edited { get; set; }
+        public string ConcurrencyStamp { get; set; }
 
         public virtual Performances Performance { get; set; }
         public virtual PurchaseMethods PurchaseMethod { get; set; }

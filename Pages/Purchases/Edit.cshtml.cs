@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -16,9 +17,9 @@ namespace TicketReservationSystem.Pages.Purchases
     public class EditModel : BasePageModel
     {
         public EditModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
         : base(context, authorizationService, userManager)
         {
         }
@@ -28,6 +29,10 @@ namespace TicketReservationSystem.Pages.Purchases
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator) && !User.IsInRole(Constants.Cashier))  {
+                return NotFound();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -42,9 +47,10 @@ namespace TicketReservationSystem.Pages.Purchases
             {
                 return NotFound();
             }
-           ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Id");
-           ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Id");
-           ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "Id");
+
+            ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
+            ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
+            ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "UserName");
             return Page();
         }
 
@@ -52,11 +58,17 @@ namespace TicketReservationSystem.Pages.Purchases
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator) && !User.IsInRole(Constants.Cashier))  {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            Purchases.ConcurrencyStamp = Guid.NewGuid().ToString();
+            Purchases.Edited = DateTime.Now;
             Context.Attach(Purchases).State = EntityState.Modified;
 
             try

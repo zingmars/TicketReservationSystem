@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -15,10 +16,10 @@ namespace TicketReservationSystem.Pages.Purchases
     public class DeleteModel : BasePageModel
     {
         public DeleteModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 
@@ -27,6 +28,10 @@ namespace TicketReservationSystem.Pages.Purchases
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator) && !User.IsInRole(Constants.Cashier))  {
+                return NotFound();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -46,6 +51,10 @@ namespace TicketReservationSystem.Pages.Purchases
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator) && !User.IsInRole(Constants.Cashier))  {
+                return NotFound();
+            }
+
             if (id == null)
             {
                 return NotFound();

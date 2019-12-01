@@ -297,7 +297,9 @@ namespace TicketReservationSystem.Migrations
                     PerformanceId = table.Column<string>(nullable: false),
                     SeatId = table.Column<long>(nullable: true),
                     AmountPaid = table.Column<double>(nullable: true),
-                    Purchased = table.Column<string>(nullable: false)
+                    Purchased = table.Column<DateTime>(nullable: false),
+                    Edited = table.Column<DateTime>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

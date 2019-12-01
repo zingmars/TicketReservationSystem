@@ -7,7 +7,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>List of purchases</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -15,6 +15,12 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                Buyer
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchases[0].Performance)
+            </th>
             <th>
                 Seat Number
             </th>
@@ -25,13 +31,7 @@
                 @Html.DisplayNameFor(model => model.Purchases[0].Purchased)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Purchases[0].Performance)
-            </th>
-            <th>
                 Method
-            </th>
-            <th>
-                Buyer
             </th>
             <th></th>
         </tr>
@@ -41,28 +41,25 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Performance.Name)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.SeatId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AmountPaid)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Performance.Name)
+                    @Html.DisplayFor(modelItem => item.Purchased)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @if ((await Model.AuthorizationService.AuthorizeAsync(
-                    User, item,
-                    new[] { ManagementOperations.Update })).Succeeded)
-                    {
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
-                        <text> | </text>
-                    }
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
