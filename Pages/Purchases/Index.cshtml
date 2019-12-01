@@ -1,0 +1,64 @@
+﻿@page
+@model TicketReservationSystem.Pages.Purchases.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Seat Number
+            </th>
+            <th>
+                Amount paid
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchases[0].Purchased)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchases[0].Performance)
+            </th>
+            <th>
+                Method
+            </th>
+            <th>
+                Buyer
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Purchases) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Performance.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

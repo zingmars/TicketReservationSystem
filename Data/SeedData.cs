@@ -129,6 +129,33 @@ namespace TicketReservationSystem.Data
                 }
             );
 
+            context.PurchaseMethods.AddRange(
+                new PurchaseMethods
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Description = "",
+                    Name = "Method 1",
+                    NormalizedName = "METHOD 1"
+                },
+                new PurchaseMethods
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Description = "",
+                    Name = "Method 2",
+                    NormalizedName = "METHOD 2"
+                },
+                new PurchaseMethods
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Description = "",
+                    Name = "Method 3",
+                    NormalizedName = "METHOD 3"
+                }
+            );
+
             context.SaveChanges();
         }
     }

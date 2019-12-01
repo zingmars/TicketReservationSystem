@@ -29,9 +29,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Pages\Purchases\" />
-  </ItemGroup>
-
 </Project>
