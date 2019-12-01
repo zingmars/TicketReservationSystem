@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Purchases\" />
-    <Folder Include="Pages\Performances\" />
   </ItemGroup>
 
 </Project>

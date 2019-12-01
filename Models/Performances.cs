@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TicketReservationSystem.Models
 {
@@ -12,6 +13,7 @@ namespace TicketReservationSystem.Models
             Purchases = new HashSet<Purchases>();
         }
 
+        [Key]
         public string Id { get; set; }
         public string TheatreId { get; set; }
         public string Name { get; set; }
