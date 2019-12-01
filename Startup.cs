@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using TicketReservationSystem.Data;
+using Microsoft.AspNetCore.Authorization;
+using TicketReservationSystem.Authorization;
 
 namespace TicketReservationSystem
 {
@@ -26,6 +28,13 @@ namespace TicketReservationSystem
             services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+
+            // Authorization handlers.
+            services.AddScoped<IAuthorizationHandler,
+                                  AdministratorsAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                                  PurchaseIsBuyerAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +13,14 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Theatres
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public EditModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public EditModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -30,7 +33,7 @@ namespace TicketReservationSystem.Pages.Theatres
                 return NotFound();
             }
 
-            Theatres = await _context.Theatres.FirstOrDefaultAsync(m => m.Id == id);
+            Theatres = await Context.Theatres.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Theatres == null)
             {
@@ -48,11 +51,11 @@ namespace TicketReservationSystem.Pages.Theatres
                 return Page();
             }
 
-            _context.Attach(Theatres).State = EntityState.Modified;
+            Context.Attach(Theatres).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -71,7 +74,7 @@ namespace TicketReservationSystem.Pages.Theatres
 
         private bool TheatresExists(string id)
         {
-            return _context.Theatres.Any(e => e.Id == id);
+            return Context.Theatres.Any(e => e.Id == id);
         }
     }
 }

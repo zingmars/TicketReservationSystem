@@ -1,5 +1,6 @@
 ﻿@page
 @model TicketReservationSystem.Pages.Performances.IndexModel
+@using TicketReservationSystem.Authorization
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +10,11 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+    {
+        <text> | </text>
+        <a asp-page="Create">Create New</a>
+    }
 </p>
 <table class="table">
     <thead>

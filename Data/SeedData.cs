@@ -87,6 +87,7 @@ namespace TicketReservationSystem.Data
             context.Categories.AddRange(
                 new Categories
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Musical",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedName = "MUSICAL",
@@ -94,6 +95,7 @@ namespace TicketReservationSystem.Data
                 },
                 new Categories
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Romance",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedName = "ROMANCE",
@@ -101,6 +103,7 @@ namespace TicketReservationSystem.Data
                 },
                 new Categories
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Comedy",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedName = "COMEDY",
@@ -108,6 +111,7 @@ namespace TicketReservationSystem.Data
                 },
                 new Categories
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Tragedy",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedName = "TRAGEDY",
@@ -115,6 +119,7 @@ namespace TicketReservationSystem.Data
                 },
                 new Categories
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Horror",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedName = "HORROR",
@@ -122,6 +127,7 @@ namespace TicketReservationSystem.Data
                 },
                 new Categories
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Fantasy",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedName = "FANTASY",

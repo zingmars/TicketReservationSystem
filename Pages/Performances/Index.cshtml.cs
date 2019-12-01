@@ -2,29 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
+using TicketReservationSystem.Authorization;
 
 namespace TicketReservationSystem.Pages.Performances
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public IndexModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public IndexModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IList<Models.Performances> Performances { get;set; }
 
         public async Task OnGetAsync()
-        {
-            Performances = await _context.Performances
+        {   
+            Performances = await Context.Performances
                 .Include(p => p.Theatre).ToListAsync();
+
         }
     }
 }

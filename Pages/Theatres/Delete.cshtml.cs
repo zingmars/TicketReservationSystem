@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +12,14 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Theatres
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public DeleteModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public DeleteModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -29,7 +32,7 @@ namespace TicketReservationSystem.Pages.Theatres
                 return NotFound();
             }
 
-            Theatres = await _context.Theatres.FirstOrDefaultAsync(m => m.Id == id);
+            Theatres = await Context.Theatres.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Theatres == null)
             {
@@ -45,12 +48,12 @@ namespace TicketReservationSystem.Pages.Theatres
                 return NotFound();
             }
 
-            Theatres = await _context.Theatres.FindAsync(id);
+            Theatres = await Context.Theatres.FindAsync(id);
 
             if (Theatres != null)
             {
-                _context.Theatres.Remove(Theatres);
-                await _context.SaveChangesAsync();
+                Context.Theatres.Remove(Theatres);
+                await Context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");

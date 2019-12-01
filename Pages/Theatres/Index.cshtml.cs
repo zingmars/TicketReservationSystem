@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,20 +12,21 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Theatres
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public IndexModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public IndexModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IList<Models.Theatres> Theatres { get;set; }
 
         public async Task OnGetAsync()
         {
-            Theatres = await _context.Theatres.ToListAsync();
+            Theatres = await Context.Theatres.ToListAsync();
         }
     }
 }

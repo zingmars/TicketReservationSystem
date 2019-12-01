@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +13,14 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Purchases
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public EditModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public EditModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -30,7 +33,7 @@ namespace TicketReservationSystem.Pages.Purchases
                 return NotFound();
             }
 
-            Purchases = await _context.Purchases
+            Purchases = await Context.Purchases
                 .Include(p => p.Performance)
                 .Include(p => p.PurchaseMethod)
                 .Include(p => p.User).FirstOrDefaultAsync(m => m.Id == id);
@@ -39,9 +42,9 @@ namespace TicketReservationSystem.Pages.Purchases
             {
                 return NotFound();
             }
-           ViewData["PerformanceId"] = new SelectList(_context.Performances, "Id", "Id");
-           ViewData["PurchaseMethodId"] = new SelectList(_context.PurchaseMethods, "Id", "Id");
-           ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
+           ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Id");
+           ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Id");
+           ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "Id");
             return Page();
         }
 
@@ -54,11 +57,11 @@ namespace TicketReservationSystem.Pages.Purchases
                 return Page();
             }
 
-            _context.Attach(Purchases).State = EntityState.Modified;
+            Context.Attach(Purchases).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,7 +80,7 @@ namespace TicketReservationSystem.Pages.Purchases
 
         private bool PurchasesExists(string id)
         {
-            return _context.Purchases.Any(e => e.Id == id);
+            return Context.Purchases.Any(e => e.Id == id);
         }
     }
 }

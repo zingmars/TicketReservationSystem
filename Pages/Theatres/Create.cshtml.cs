@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,13 +12,14 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Theatres
 {
-    public class CreateModel : PageModel
+    public class CreateModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public CreateModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public CreateModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()
@@ -40,8 +43,8 @@ namespace TicketReservationSystem.Pages.Theatres
             Theatres.NormalizedName = Theatres.Name.ToUpper();
             Theatres.ConcurrencyStamp = Guid.NewGuid().ToString();
 
-            _context.Theatres.Add(Theatres);
-            await _context.SaveChangesAsync();
+            Context.Theatres.Add(Theatres);
+            await Context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

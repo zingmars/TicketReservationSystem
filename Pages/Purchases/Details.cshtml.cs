@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +12,14 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Purchases
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public DetailsModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public DetailsModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public Models.Purchases Purchases { get; set; }
@@ -28,7 +31,7 @@ namespace TicketReservationSystem.Pages.Purchases
                 return NotFound();
             }
 
-            Purchases = await _context.Purchases
+            Purchases = await Context.Purchases
                 .Include(p => p.Performance)
                 .Include(p => p.PurchaseMethod)
                 .Include(p => p.User).FirstOrDefaultAsync(m => m.Id == id);

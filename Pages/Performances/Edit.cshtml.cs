@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +13,14 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Performances
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
-        private readonly TicketReservationSystem.Data.ApplicationDbContext _context;
-
-        public EditModel(TicketReservationSystem.Data.ApplicationDbContext context)
+        public EditModel(
+        ApplicationDbContext context,
+        IAuthorizationService authorizationService,
+        UserManager<IdentityUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -30,14 +33,14 @@ namespace TicketReservationSystem.Pages.Performances
                 return NotFound();
             }
 
-            Performances = await _context.Performances
+            Performances = await Context.Performances
                 .Include(p => p.Theatre).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Performances == null)
             {
                 return NotFound();
             }
-           ViewData["TheatreId"] = new SelectList(_context.Theatres, "Id", "Name");
+           ViewData["TheatreId"] = new SelectList(Context.Theatres, "Id", "Name");
             return Page();
         }
 
@@ -50,11 +53,11 @@ namespace TicketReservationSystem.Pages.Performances
                 return Page();
             }
 
-            _context.Attach(Performances).State = EntityState.Modified;
+            Context.Attach(Performances).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -73,7 +76,7 @@ namespace TicketReservationSystem.Pages.Performances
 
         private bool PerformancesExists(string id)
         {
-            return _context.Performances.Any(e => e.Id == id);
+            return Context.Performances.Any(e => e.Id == id);
         }
     }
 }

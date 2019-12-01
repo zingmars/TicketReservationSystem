@@ -1,5 +1,6 @@
 ﻿@page
 @model TicketReservationSystem.Pages.Purchases.IndexModel
+@using TicketReservationSystem.Authorization
 
 @{
     ViewData["Title"] = "Index";
@@ -36,29 +37,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Purchases) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountPaid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Performance.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Purchases)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountPaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Performance.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @if ((await Model.AuthorizationService.AuthorizeAsync(
+                    User, item,
+                    new[] { ManagementOperations.Update })).Succeeded)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <text> | </text>
+                    }
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
