@@ -18,10 +18,10 @@ In project directory:
 
 ### Default credentials
 
-After migrations are applied, you can log in as Administrator admin@admin.com
-												Bookkeeper bookkeeper@bookkeeper.com
-												Cashier cashier@cashier.com
-												User user@user.com
+After migrations are applied, you can log in as Administrator admin@admin.com  
+												Bookkeeper bookkeeper@bookkeeper.com  
+												Cashier cashier@cashier.com  
+												User user@user.com  
 In order to use these profiles, you need to specify a password using following command: `dotnet user-secrets set SeedUserPW Password!123`
 
 ## Running instructions
