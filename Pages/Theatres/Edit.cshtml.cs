@@ -58,6 +58,8 @@ namespace TicketReservationSystem.Pages.Theatres
                 return Page();
             }
 
+            Theatres.NormalizedName = Theatres.Name.ToUpper();
+            Theatres.ConcurrencyStamp = Guid.NewGuid().ToString();
             Context.Attach(Theatres).State = EntityState.Modified;
 
             try

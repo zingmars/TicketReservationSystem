@@ -60,6 +60,8 @@ namespace TicketReservationSystem.Pages.Performances
                 return Page();
             }
 
+            Performances.NormalizedName = Performances.Name.ToUpper();
+            Performances.ConcurrencyStamp = Guid.NewGuid().ToString();
             Context.Attach(Performances).State = EntityState.Modified;
 
             try
