@@ -41,7 +41,7 @@ Using visual studio code:
 
 [Detailed documentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding)
 
-:warning: **If you reverse engineer the model from the database again, any changes you've made to the files will be lost.** :warning:
+:warning: **If you recreate the model from the database, any changes made to the current models will be lost which might not be what you want** :warning:
 
 * Scaffolding pages based on model schema (replace `<ModelName>` with the desired model):
 
