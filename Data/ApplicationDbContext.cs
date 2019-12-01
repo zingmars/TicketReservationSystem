@@ -25,8 +25,8 @@ namespace TicketReservationSystem.Data
         public virtual DbSet<PerformanceDates> PerformanceDates { get; set; }
         public virtual DbSet<Performances> Performances { get; set; }
         public virtual DbSet<PurchaseMethods> PurchaseMethods { get; set; }
-        public virtual DbSet<Purchases> Purchases { get; set; }
-        public virtual DbSet<Theatres> Theatres { get; set; }        
+        public virtual DbSet<Purchases> Purchases { get; set; } // by User ID
+        public virtual DbSet<Theatres> Theatres { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,16 +40,6 @@ namespace TicketReservationSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<AspNetUsers>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique();
-            });
 
             modelBuilder.Entity<BusinessHours>(entity =>
             {
@@ -145,9 +135,7 @@ namespace TicketReservationSystem.Data
                     .WithMany(p => p.Purchases)
                     .HasForeignKey(d => d.PurchaseMethodId);
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Purchases)
-                    .HasForeignKey(d => d.UserId);
+                entity.HasOne(d => d.User);                    
             });
 
             modelBuilder.Entity<Theatres>(entity =>

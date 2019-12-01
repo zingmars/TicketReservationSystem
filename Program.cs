@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using TicketReservationSystem.Data;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace TicketReservationSystem
 {
@@ -26,6 +27,14 @@ namespace TicketReservationSystem
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     context.Database.EnsureCreated();
+
+                    // requires using Microsoft.Extensions.Configuration;
+                    var config = host.Services.GetRequiredService<IConfiguration>();
+                    // Set password with the Secret Manager tool.
+                    // dotnet user-secrets set SeedUserPW <pw>
+
+                    var testUserPw = config["SeedUserPW"];
+                    SeedData.Initialize(services, testUserPw).Wait();
                 }
                 catch (Exception ex)
                 {

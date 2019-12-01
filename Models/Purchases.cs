@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace TicketReservationSystem.Models
@@ -15,6 +16,6 @@ namespace TicketReservationSystem.Models
 
         public virtual Performances Performance { get; set; }
         public virtual PurchaseMethods PurchaseMethod { get; set; }
-        public virtual AspNetUsers User { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }
