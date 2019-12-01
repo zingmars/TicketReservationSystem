@@ -17,5 +17,7 @@ jobs:
       run: dotnet build --configuration Release
     - name: Install dotnet-ef
       run: dotnet tool install --global dotnet-ef --version 3.0.0
+    - name: Check if dotnet-ef got installed
+      run: dotnet tool list -g
     - name: Test migrations
       run: dotnet ef database update
