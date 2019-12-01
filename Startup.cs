@@ -32,8 +32,7 @@ namespace TicketReservationSystem
             // Authorization handlers.
             services.AddScoped<IAuthorizationHandler,
                                   AdministratorsAuthorizationHandler>();
-
-            services.AddSingleton<IAuthorizationHandler,
+            services.AddScoped<IAuthorizationHandler,
                                   PurchaseIsBuyerAuthorizationHandler>();
         }
 
