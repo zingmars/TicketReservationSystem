@@ -15,10 +15,10 @@ namespace TicketReservationSystem.Pages.Theatres
     public class DetailsModel : BasePageModel
     {
         public DetailsModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 

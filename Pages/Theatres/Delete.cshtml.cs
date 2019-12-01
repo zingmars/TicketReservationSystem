@@ -16,10 +16,10 @@ namespace TicketReservationSystem.Pages.Theatres
     public class DeleteModel : BasePageModel
     {
         public DeleteModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 

@@ -17,10 +17,10 @@ namespace TicketReservationSystem.Pages.Theatres
     public class EditModel : BasePageModel
     {
         public EditModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 

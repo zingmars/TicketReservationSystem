@@ -15,10 +15,10 @@ namespace TicketReservationSystem.Pages.Theatres
     public class IndexModel : BasePageModel
     {
         public IndexModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 

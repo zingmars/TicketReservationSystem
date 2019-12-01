@@ -16,10 +16,10 @@ namespace TicketReservationSystem.Pages.Theatres
     public class CreateModel : BasePageModel
     {
         public CreateModel(
-        ApplicationDbContext context,
-        IAuthorizationService authorizationService,
-        UserManager<IdentityUser> userManager)
-        : base(context, authorizationService, userManager)
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        ) : base(context, authorizationService, userManager)
         {
         }
 
@@ -28,7 +28,6 @@ namespace TicketReservationSystem.Pages.Theatres
             if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
                 return NotFound();
             }
-
             return Page();
         }
 
