@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -28,6 +29,10 @@ namespace TicketReservationSystem.Pages.Theatres
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -42,10 +47,12 @@ namespace TicketReservationSystem.Pages.Theatres
             return Page();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

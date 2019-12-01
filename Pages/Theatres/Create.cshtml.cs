@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TicketReservationSystem.Authorization;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
 
@@ -24,6 +25,10 @@ namespace TicketReservationSystem.Pages.Theatres
 
         public IActionResult OnGet()
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
+
             return Page();
         }
 
@@ -34,6 +39,10 @@ namespace TicketReservationSystem.Pages.Theatres
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
