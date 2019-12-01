@@ -1,0 +1,33 @@
+@page
+@model TicketReservationSystem.Pages.Categories.DetailsModel
+@using TicketReservationSystem.Authorization
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detailed category view</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categories.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categories.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categories.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categories.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Categories.Id">Edit</a> <span> |</span>
+    }    
+    <a asp-page="./Index">Back to List</a>
+</div>

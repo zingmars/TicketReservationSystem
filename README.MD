@@ -35,10 +35,16 @@ Using visual studio code:
 
 ## Commands for scaffolding
 
-Scaffolding entity type classes and a DbContext class based on a database schema:
+* Scaffolding entity type classes and a DbContext class based on a database schema:
 
 `dotnet ef dbcontext scaffold "Data Source=database.db" Microsoft.EntityFrameworkCore.Sqlite --table BusinessHours --table Categories --table Performances --table PerformanceCategories --table Theatres --table PerformanceDates --table PurchaseMethods --table AspNetUsers --table Purchases --context ApplicationDbContext --context-dir Data --output-dir Models --force`
 
 [Detailed documentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding)
 
 :warning: **If you reverse engineer the model from the database again, any changes you've made to the files will be lost.** :warning:
+
+* Scaffolding pages based on model schema (replace `<ModelName>` with the desired model):
+
+`dotnet aspnet-codegenerator razorpage -m <ModelName> -dc TicketReservationSystem.Data.ApplicationDbContext -udl -outDir Pages\<ModelName> --referenceScriptLibraries`
+
+Note that while this does generate most of the boilerplate, you will have to manually integrate our authentication models into the controllers.
