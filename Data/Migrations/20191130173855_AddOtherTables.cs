@@ -234,9 +234,10 @@ namespace TicketReservationSystem.Data.Migrations
                 unique: true
             );
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_Performances",
+                name: "PurchaseIndex",
                 table: "Purchases",
-                column: "PurchaseId"
+                column: "Id",
+                unique: true
             );
 
             // Seed / Dummy data
