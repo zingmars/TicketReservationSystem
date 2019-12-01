@@ -7,12 +7,12 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>List of theatres</h1>
 
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <text> | </text>
+        <p> | </p>
         <a asp-page="Create">Create New</a>
     }
 </p>
@@ -51,11 +51,14 @@
                     @Html.DisplayFor(modelItem => item.Seats)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+                    {
+                        <a asp-page="./Edit" asp-route-id=@("@item.Id")>Edit</a><span> |</span>
+                        <a asp-page="./Delete" asp-route-id=@("item.Id")>Delete</a><span> |</span>
+                    }             
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
-        }
+        }                
     </tbody>
 </table>
