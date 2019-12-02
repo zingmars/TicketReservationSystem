@@ -11,5 +11,6 @@ namespace TicketReservationSystem.Models
         public DateTime Ends { get; set; }
 
         public virtual Performances Performance { get; set; }
+        public virtual ICollection<Purchases> Purchases { get; set; }
     }
 }

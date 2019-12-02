@@ -385,6 +385,10 @@ namespace TicketReservationSystem.Migrations
                     b.Property<string>("PerformanceId")
                         .IsRequired()
                         .HasColumnType("TEXT");
+                    
+                    b.Property<string>("PerformanceDateId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PurchaseMethodId")
                         .IsRequired()

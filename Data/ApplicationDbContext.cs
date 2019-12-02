@@ -123,6 +123,8 @@ namespace TicketReservationSystem.Data
 
                 entity.Property(e => e.PerformanceId).IsRequired();
 
+                entity.Property(e => e.PerformanceDateId).IsRequired();
+
                 entity.Property(e => e.PurchaseMethodId).IsRequired();
 
                 entity.Property(e => e.Purchased).IsRequired();
@@ -132,6 +134,10 @@ namespace TicketReservationSystem.Data
                 entity.HasOne(d => d.Performance)
                     .WithMany(p => p.Purchases)
                     .HasForeignKey(d => d.PerformanceId);
+
+                entity.HasOne(d => d.PerformanceDate)
+                    .WithMany(p => p.Purchases)
+                    .HasForeignKey(d => d.PerformanceDateId);
 
                 entity.HasOne(d => d.PurchaseMethod)
                     .WithMany(p => p.Purchases)

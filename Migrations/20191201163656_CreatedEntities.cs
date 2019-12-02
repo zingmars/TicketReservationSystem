@@ -296,6 +296,7 @@ namespace TicketReservationSystem.Migrations
                     UserId = table.Column<string>(nullable: false),
                     PurchaseMethodId = table.Column<string>(nullable: false),
                     PerformanceId = table.Column<string>(nullable: false),
+                    PerformanceDateId = table.Column<string>(nullable: false),
                     SeatId = table.Column<long>(nullable: true),
                     AmountPaid = table.Column<double>(nullable: true),
                     Purchased = table.Column<DateTime>(nullable: false),
@@ -309,6 +310,12 @@ namespace TicketReservationSystem.Migrations
                         name: "FK_Purchases_Performances_PerformanceId",
                         column: x => x.PerformanceId,
                         principalTable: "Performances",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Purchases_PerformanceDates_PerformanceDateId",
+                        column: x => x.PerformanceDateId,
+                        principalTable: "PerformanceDates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
