@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PerformanceDates.First().Begins)
+                @Html.DisplayFor(modelItem => item.PerformanceDates.First(x => x.Begins > DateTime.Now).Begins)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
