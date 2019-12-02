@@ -42,7 +42,7 @@
                     <a asp-page="./EditDate" asp-route-id="@item.Id">Edit</a><span> |</span>
                     <a asp-page="./DeleteDate" asp-route-id="@item.Id">Delete</a><span> |</span>
                 }
-                <a asp-page="../Purchases/New" asp-route-id="@item.Id">Buy ticket!</a>
+                <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" asp-route-PerformanceDateId="@item.Id">Buy ticket!</a>
             </td>
         </tr>
 }

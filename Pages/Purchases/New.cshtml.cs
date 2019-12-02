@@ -21,7 +21,7 @@ namespace TicketReservationSystem.Pages.Purchases
         {
         }
 
-        public IActionResult OnGet(string PerformanceId)
+        public IActionResult OnGet(string PerformanceId, string PerformanceDateId)
         {
             if (!User.Identity.IsAuthenticated) {
                 return Redirect("/Identity/Account/Login?returnUrl=/Purchases/New?PerformanceId="+PerformanceId);
@@ -34,6 +34,7 @@ namespace TicketReservationSystem.Pages.Purchases
             this.Purchases = new Models.Purchases();
             this.Purchases.PerformanceId = PerformanceId;
             this.Purchases.Performance = Context.Performances.First(x => x.Id == PerformanceId);
+            this.Purchases.PerformanceDateId = PerformanceDateId;
 
             ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
             ViewData["PerformanceDateId"] = new SelectList(Context.PerformanceDates.Where(x => x.PerformanceId == PerformanceId).ToList(), "Id", "Begins");
@@ -42,7 +43,6 @@ namespace TicketReservationSystem.Pages.Purchases
 
         [BindProperty]
         public Models.Purchases Purchases { get; set; }
-        public string PerformanceId { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

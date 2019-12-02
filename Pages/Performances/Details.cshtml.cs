@@ -33,6 +33,7 @@ namespace TicketReservationSystem.Pages.Performances
 
             Performances = await Context.Performances
                 .Include(p => p.Theatre)
+                .Include(p => p.PerformanceDates)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Performances == null)

@@ -37,11 +37,41 @@
         </dd>
     </dl>
 </div>
+<h4>Event dates</h4>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Begins
+                </th>
+                <th>
+                    Ends
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Performances.PerformanceDates) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Begins)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ends)
+                </td>
+                <td>
+                    <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" asp-route-PerformanceDateId="@item.Id">Buy ticket!</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
 <div>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
         <a asp-page="./Edit" asp-route-id="@Model.Performances.Id">Edit</a> <span> |</span>
     }
-    <a asp-page="../Purchases/New" asp-route-PerformanceId="@Model.Performances.Id">Buy a ticket!</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
