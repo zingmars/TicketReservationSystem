@@ -274,7 +274,8 @@ namespace TicketReservationSystem.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     PerformanceId = table.Column<string>(nullable: false),
-                    Date = table.Column<string>(nullable: false)
+                    Begins = table.Column<DateTime>(nullable: false),
+                    Ends = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -5,8 +5,11 @@ These should be implemented for a full system. None of these will be implemented
 2. Administrator's user view - Admin should be able to manage the users from within the web app
 3. Theatre, performance, user selection should be reworked - a simple dropdown won't scale well into an actual system
 4. Ticket viewing/printing functionality
+5. The performances view should only list upcoming performances
+6. Search functionality
 
-These should probably have been implemented:
-1. Search functionality
-2. When opening views like performances (from purchases view), theatres (from show view) etc they should have a "Go back" link instead of "Back to list" link.
-3. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
+These should probably have been implemented, but wasn't:
+1. When opening views like performances (from purchases view), theatres (from show view) etc they should have a "Go back" link instead of "Back to list" link.
+2. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
+3. The "Buy a ticket" link in performance's date view should auto-select the performance and the selected date
+4. Editing, deleting performance times

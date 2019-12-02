@@ -84,7 +84,9 @@ namespace TicketReservationSystem.Data
                 entity.HasIndex(e => e.PerformanceId)
                     .HasName("IX_PerformanceDates_Performances");
 
-                entity.Property(e => e.Date).IsRequired();
+                entity.Property(e => e.Begins).IsRequired();
+
+                entity.Property(e => e.Ends).IsRequired();
 
                 entity.Property(e => e.PerformanceId).IsRequired();
 

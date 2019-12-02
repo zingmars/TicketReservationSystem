@@ -1,0 +1,38 @@
+﻿@page
+@model TicketReservationSystem.Pages.Performances.CreateDatesModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Creating a new event date</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="PerformanceDates.Begins" class="control-label"></label>
+                <input asp-for="PerformanceDates.Begins" class="form-control" />
+                <span asp-validation-for="PerformanceDates.Begins" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PerformanceDates.Ends" class="control-label"></label>
+                <input asp-for="PerformanceDates.Ends" class="form-control" />
+                <span asp-validation-for="PerformanceDates.Ends" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./IndexDates" asp-route-id="@Model.id">View dates</a><span> |</span>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -293,7 +293,11 @@ namespace TicketReservationSystem.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Date")
+                    b.Property<DateTime>("Begins")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Ends")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

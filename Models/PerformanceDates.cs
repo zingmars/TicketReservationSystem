@@ -7,7 +7,8 @@ namespace TicketReservationSystem.Models
     {
         public string Id { get; set; }
         public string PerformanceId { get; set; }
-        public string Date { get; set; }
+        public DateTime Begins { get; set; }
+        public DateTime Ends { get; set; }
 
         public virtual Performances Performance { get; set; }
     }
