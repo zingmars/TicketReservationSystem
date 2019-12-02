@@ -12,7 +12,7 @@
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <a asp-page="./CreateDates" asp-route-id="@Model.id">Add a new date</a>
+        <a asp-page="./CreateDates" asp-route-id="@Model.PerformanceId">Add a new date</a>
     }
 </p>
 <table class="table">

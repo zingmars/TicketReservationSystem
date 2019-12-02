@@ -24,7 +24,7 @@ namespace TicketReservationSystem.Pages.Performances
 
         public IList<Models.PerformanceDates> PerformanceDates { get;set; }
         public string PerformanceName { get;set;}
-        public string id { get; set; } //TODO: Rename
+        public string PerformanceId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {   
@@ -37,7 +37,7 @@ namespace TicketReservationSystem.Pages.Performances
             PerformanceDates = await Context.PerformanceDates
                 .Where(p => p.PerformanceId == id)
                 .ToListAsync();
-            this.id = id;
+            this.PerformanceId = id;
 
             return Page();
         }

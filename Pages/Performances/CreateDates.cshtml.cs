@@ -32,14 +32,14 @@ namespace TicketReservationSystem.Pages.Performances
             if (id == null) {
                 return NotFound();
             }
-            this.id = id;
+            this.PerformanceId = id;
 
             return Page();
         }
 
         [BindProperty]
         public Models.PerformanceDates PerformanceDates { get; set; }
-        public string id { get; set; } //TODO: Rename
+        public string PerformanceId { get; set; } //TODO: Rename
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -48,18 +48,25 @@ namespace TicketReservationSystem.Pages.Performances
             if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
                 return NotFound();
             }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            //TODO: Check if there's already an event at this time
+            if (PerformanceDates.Begins > PerformanceDates.Ends){
+                //TODO: Error message
+                //TODO: Pass PerformanceId back. If this triggers this field won't be re-populated properly.
+                return Page();
+            }
+
             PerformanceDates.Id = Guid.NewGuid().ToString();
-            PerformanceDates.PerformanceId = id;
 
             Context.PerformanceDates.Add(PerformanceDates);
             await Context.SaveChangesAsync();
 
-            return RedirectToPage("./IndexDates");
+            return Redirect("./IndexDates?id="+PerformanceDates.PerformanceId);
         }
     }
 }

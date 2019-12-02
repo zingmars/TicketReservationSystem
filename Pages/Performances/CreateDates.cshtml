@@ -11,7 +11,7 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="id" />
+            <input type="hidden" name="PerformanceDates.PerformanceId" value="@Model.PerformanceId" />
             <div class="form-group">
                 <label asp-for="PerformanceDates.Begins" class="control-label"></label>
                 <input asp-for="PerformanceDates.Begins" class="form-control" />
@@ -30,7 +30,7 @@
 </div>
 
 <div>
-    <a asp-page="./IndexDates" asp-route-id="@Model.id">View dates</a><span> |</span>
+    <a asp-page="./IndexDates" asp-route-id="@Model.PerformanceId">Back to date list</a>
 </div>
 
 @section Scripts {
