@@ -28,6 +28,7 @@ namespace TicketReservationSystem.Pages.Performances
         public async Task OnGetAsync()
         {   
             Performances = await Context.Performances
+                .Include(p => p.PerformanceDates)
                 .Include(p => p.Theatre).ToListAsync();
 
         }

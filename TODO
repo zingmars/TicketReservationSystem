@@ -18,4 +18,3 @@ These should probably have been implemented, but wasn't:
 5. Date-time picker for event dates that works with all browsers (Only Blink and MSHTML based browsers support datetime-local inputs generated for these fields)
 6. Validation for event date creation
 7. Add event date information (selection, viewing) to admin's purchase view
-8. Performance list should show the next date the event happens on
