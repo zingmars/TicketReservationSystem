@@ -20,7 +20,7 @@
             @Html.DisplayNameFor(model => model.Purchases.Performance)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Purchases.Performance.Name)
+            <a asp-page="../Performances/Details" asp-route-id="@Model.Purchases.Performance.Id">@Html.DisplayFor(model => model.Purchases.Performance.Name)</a>
         </dd>
         <dt class="col-sm-2">
             Purchase created
