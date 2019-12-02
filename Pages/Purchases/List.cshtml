@@ -14,6 +14,9 @@
                 @Html.DisplayNameFor(model => model.Purchases[0].Performance)
             </th>
             <th>
+                Date
+            </th>
+            <th>
                 Seat Number
             </th>
             <th>
@@ -34,6 +37,9 @@
             <tr>
                 <td>
                     <a asp-page="../Performances/Details" asp-route-id="@item.Performance.Id">@Html.DisplayFor(modelItem => item.Performance.Name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerformanceDate.Begins)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SeatId)

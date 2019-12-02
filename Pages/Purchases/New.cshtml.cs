@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TicketReservationSystem.Data;
 using TicketReservationSystem.Models;
+using System.Collections.Generic;
 
 namespace TicketReservationSystem.Pages.Purchases
 {
@@ -20,19 +21,28 @@ namespace TicketReservationSystem.Pages.Purchases
         {
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string PerformanceId)
         {
             if (!User.Identity.IsAuthenticated) {
-                return Redirect("/Identity/Account/Login?returnUrl=/Purchases/New");
+                return Redirect("/Identity/Account/Login?returnUrl=/Purchases/New?PerformanceId="+PerformanceId);
             }
 
-            ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
+            if (PerformanceId == null) {
+                return Redirect("/Error");
+            }
+
+            this.Purchases = new Models.Purchases();
+            this.Purchases.PerformanceId = PerformanceId;
+            this.Purchases.Performance = Context.Performances.First(x => x.Id == PerformanceId);
+
             ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
+            ViewData["PerformanceDateId"] = new SelectList(Context.PerformanceDates.Where(x => x.PerformanceId == PerformanceId).ToList(), "Id", "Begins");
             return Page();                                               
         }
 
         [BindProperty]
         public Models.Purchases Purchases { get; set; }
+        public string PerformanceId { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

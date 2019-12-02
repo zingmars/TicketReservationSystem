@@ -42,6 +42,8 @@ namespace TicketReservationSystem.Pages.Purchases
                 .Include(p => p.Performance)
                 .Include(p => p.PurchaseMethod)
                 .Include(p => p.User).FirstOrDefaultAsync(m => m.Id == id);
+            
+            // TODO: Performance dates
 
             if (Purchases == null)
             {
@@ -49,7 +51,8 @@ namespace TicketReservationSystem.Pages.Purchases
             }
 
             ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
-            ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
+            ViewData["PurchaseDateId"] = new SelectList(Context.PerformanceDates, "Id", "Begins");
+            ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");            
             ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "UserName");
             return Page();
         }

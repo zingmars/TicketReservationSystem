@@ -34,6 +34,7 @@ namespace TicketReservationSystem.Pages.Purchases
             Purchases = await Context.Purchases
             .Where(p => p.UserId == UserManager.GetUserId(User))
             .Include(p => p.Performance)
+            .Include(p => p.PerformanceDate)
             .Include(p => p.PurchaseMethod)
             .ToListAsync();
 
