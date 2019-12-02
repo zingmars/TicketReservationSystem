@@ -1,0 +1,56 @@
+﻿@page
+@model TicketReservationSystem.Pages.Purchases.ListModel
+
+@{
+    ViewData["Title"] = "List purchases";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>List of your purchases</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchases[0].Performance)
+            </th>
+            <th>
+                Seat Number
+            </th>
+            <th>
+                Amount paid
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchases[0].Purchased)
+            </th>
+            <th>
+                Method
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Purchases)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Performance.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountPaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Purchased)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
+                </td>
+                <td>
+                    <a href="#">Print</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

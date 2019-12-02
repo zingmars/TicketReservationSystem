@@ -1,5 +1,8 @@
-These should be implemented for a full system. None of these will be implemented for the prototype
+This file is meant to be a reference for the documentation we'll need to write.
+These should be implemented for a full system. None of these will be implemented for the prototype.
 
 1. Price validation - price should have only be allowed to have 2 numbers after the decimal point
 2. Administrator's user view - Admin should be able to manage the users from within the web app
 3. Theatre, performance, user selection should be reworked - a simple dropdown won't scale well into an actual system
+4. Search functionality
+5. Ticket viewing/printing functionality

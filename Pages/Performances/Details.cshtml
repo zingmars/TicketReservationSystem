@@ -1,5 +1,6 @@
 ﻿@page
 @model TicketReservationSystem.Pages.Performances.DetailsModel
+@using TicketReservationSystem.Authorization
 
 @{
     ViewData["Title"] = "Details";
@@ -37,6 +38,10 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Performances.Id">Edit</a> |
+    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Performances.Id">Edit</a> <span> |</span>
+    }
+    <a asp-page="../Purchases/New">Buy a ticket!</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
