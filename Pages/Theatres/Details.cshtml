@@ -8,7 +8,6 @@
 }
 
 <h1>Theatre details</h1>
-
 <div>
     <dl class="row">
         <dt class="col-sm-2">
@@ -37,6 +36,38 @@
         </dd>
     </dl>
 </div>
+
+<h4>Related performances</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Performances[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Performances[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Performances[0].Price)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Performances) {
+        <tr>
+            <td>
+                <a asp-page="../Performances/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
 <div>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {

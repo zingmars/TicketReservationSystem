@@ -23,6 +23,7 @@ namespace TicketReservationSystem.Pages.Theatres
         }
 
         public Models.Theatres Theatres { get; set; }
+        public IList<Models.Performances> Performances { get;set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -31,7 +32,11 @@ namespace TicketReservationSystem.Pages.Theatres
                 return NotFound();
             }
 
-            Theatres = await Context.Theatres.FirstOrDefaultAsync(m => m.Id == id);
+            Theatres = await Context.Theatres
+                .FirstOrDefaultAsync(m => m.Id == id);
+            Performances = await Context.Performances
+                .Where(p => p.TheatreId == Theatres.Id)
+                .ToListAsync();
 
             if (Theatres == null)
             {

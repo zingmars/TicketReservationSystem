@@ -4,6 +4,9 @@ These should be implemented for a full system. None of these will be implemented
 1. Price validation - price should have only be allowed to have 2 numbers after the decimal point
 2. Administrator's user view - Admin should be able to manage the users from within the web app
 3. Theatre, performance, user selection should be reworked - a simple dropdown won't scale well into an actual system
-4. Search functionality
-5. Ticket viewing/printing functionality
-6. When opening views like shows (from purchases view), theatres (from show view) etc they should have a "Go back" link instead of "Back to list" link.
+4. Ticket viewing/printing functionality
+
+These should probably have been implemented:
+1. Search functionality
+2. When opening views like performances (from purchases view), theatres (from show view) etc they should have a "Go back" link instead of "Back to list" link.
+3. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
