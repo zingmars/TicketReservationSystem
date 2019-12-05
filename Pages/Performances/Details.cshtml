@@ -38,6 +38,12 @@
     </dl>
 </div>
 <h4>Event dates</h4>
+<p>
+    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+    {
+        <a asp-page="./CreateDates" asp-route-id="@Model.Performances.Id">Add a new date</a>
+    }
+</p>
 <div>
     <table class="table">
         <thead>

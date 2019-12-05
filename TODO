@@ -1,13 +1,12 @@
 This file is meant to be a reference for the documentation we'll need to write.
 These should be implemented for a full system. None of these will be implemented for the prototype.
 
-1. Rename "performances" to something more fitting (i.e. event)
-2. Theatre, performance, user selection should be reworked - a simple dropdown won't scale well into an actual system
-3. Ticket viewing/printing functionality
-4. The performances view should only list upcoming performances, not all available performances
-5. Allow performances to be shared between theatres
-6. Administrator's user view - Admin should be able to manage the users from within the web app
-7. Payments
+1. Theatre, performance, user selection should be reworked - a simple dropdown won't scale well into an actual system
+2. Ticket viewing/printing functionality
+3. The performances view should only list upcoming performances, not all available performances
+4. Allow performances to be shared between theatres
+5. Administrator's user view - Admin should be able to manage the users from within the web app
+6. Payments
 
 These should probably have been implemented, but weren't (yet):
 1. When opening detail views for things like performances or theatres, they should have a "Go back" link instead of "Back to list" link if the user came from a different section.
