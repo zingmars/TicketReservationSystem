@@ -14,9 +14,9 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Performances
 {
-    public class EditModel : BasePageModel
+    public class EditDateModel : BasePageModel
     {
-        public EditModel(
+        public EditDateModel(
             ApplicationDbContext context,
             IAuthorizationService authorizationService,
             UserManager<IdentityUser> userManager
@@ -25,7 +25,7 @@ namespace TicketReservationSystem.Pages.Performances
         }
 
         [BindProperty]
-        public Models.Performances Performances { get; set; }
+        public Models.PerformanceDates PerformanceDate { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -37,14 +37,12 @@ namespace TicketReservationSystem.Pages.Performances
                 return NotFound();
             }
 
-            Performances = await Context.Performances
-                .Include(p => p.Theatre).FirstOrDefaultAsync(m => m.Id == id);
+            PerformanceDate = await Context.PerformanceDates.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Performances == null)
+            if (PerformanceDate == null)
             {
                 return NotFound();
             }
-            ViewData["TheatreId"] = new SelectList(Context.Theatres, "Id", "Name");
             return Page();
         }
 
@@ -60,9 +58,7 @@ namespace TicketReservationSystem.Pages.Performances
                 return Page();
             }
 
-            Performances.NormalizedName = Performances.Name.ToUpper();
-            Performances.ConcurrencyStamp = Guid.NewGuid().ToString();
-            Context.Attach(Performances).State = EntityState.Modified;
+            Context.Attach(PerformanceDate).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +66,7 @@ namespace TicketReservationSystem.Pages.Performances
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PerformancesExists(Performances.Id))
+                if (!PerformancesExists(PerformanceDate.Id))
                 {
                     return NotFound();
                 }
@@ -80,12 +76,12 @@ namespace TicketReservationSystem.Pages.Performances
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect("./IndexDates?id="+PerformanceDate.PerformanceId);
         }
 
         private bool PerformancesExists(string id)
         {
-            return Context.Performances.Any(e => e.Id == id);
+            return Context.PerformanceDates.Any(e => e.Id == id);
         }
     }
 }

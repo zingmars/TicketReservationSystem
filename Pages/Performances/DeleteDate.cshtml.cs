@@ -13,9 +13,9 @@ using TicketReservationSystem.Models;
 
 namespace TicketReservationSystem.Pages.Performances
 {
-    public class DeleteModel : BasePageModel
+    public class DeleteDateModel : BasePageModel
     {
-        public DeleteModel(
+        public DeleteDateModel(
             ApplicationDbContext context,
             IAuthorizationService authorizationService,
             UserManager<IdentityUser> userManager)
@@ -24,7 +24,7 @@ namespace TicketReservationSystem.Pages.Performances
         }
 
         [BindProperty]
-        public Models.Performances Performances { get; set; }
+        public Models.PerformanceDates PerformanceDate { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -36,10 +36,11 @@ namespace TicketReservationSystem.Pages.Performances
                 return NotFound();
             }
 
-            Performances = await Context.Performances
-                .Include(p => p.Theatre).FirstOrDefaultAsync(m => m.Id == id);
+            PerformanceDate = await Context.PerformanceDates
+                .Include(p => p.Performance)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Performances == null)
+            if (PerformanceDate == null)
             {
                 return NotFound();
             }
@@ -56,15 +57,15 @@ namespace TicketReservationSystem.Pages.Performances
                 return NotFound();
             }
 
-            Performances = await Context.Performances.FindAsync(id);
+            PerformanceDate = await Context.PerformanceDates.FindAsync(id);
 
-            if (Performances != null)
+            if (PerformanceDate != null)
             {
-                Context.Performances.Remove(Performances);
+                Context.PerformanceDates.Remove(PerformanceDate);
                 await Context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect("./IndexDates?id="+PerformanceDate.PerformanceId);
         }
     }
 }

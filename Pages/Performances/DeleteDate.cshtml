@@ -1,0 +1,37 @@
+﻿@page
+@model TicketReservationSystem.Pages.Performances.DeleteDateModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Are you sure you want to delete this?</h1>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Performance name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PerformanceDate.Performance.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PerformanceDate.Begins)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PerformanceDate.Begins)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PerformanceDate.Ends)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PerformanceDate.Ends)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="PerformanceDate.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./IndexDates" asp-route-id="@Model.PerformanceDate.PerformanceId">Back to list</a>
+    </form>
+</div>

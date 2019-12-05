@@ -7,15 +7,14 @@ These should be implemented for a full system. None of these will be implemented
 4. Allow performances to be shared between theatres
 5. Administrator's user view - Admin should be able to manage the users from within the web app
 6. Payments
+7. Date-time picker for event dates that works with all browsers (Only Blink and MSHTML based browsers support datetime-local inputs generated for these fields)
 
 These should probably have been implemented, but weren't (yet):
 1. When opening detail views for things like performances or theatres, they should have a "Go back" link instead of "Back to list" link if the user came from a different section.
-2. Date-time picker for event dates that works with all browsers (Only Blink and MSHTML based browsers support datetime-local inputs generated for these fields)
-3. Validation for event date creation (/Pages/Performances/CreateDates.cshtml.cs line 57+)
-4. Price validation - price should have only be allowed to have 2 numbers after the decimal point
-5. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
-6. Search functionality
-7. Translate in Latvian
-8. Add event date information (selection, viewing) to admin's purchase view
-9. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
-10. Editing, deleting performance times
+2. Validation for event date creation (/Pages/Performances/CreateDates.cshtml.cs line 57+)
+3. Price validation - price should have only be allowed to have 2 numbers after the decimal point
+4. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
+5. Search functionality
+6. Translate in Latvian
+7. Add event date information (selection, viewing) to admin's purchase view
+8. Categories: Adding them to performances, having performances list related categories and having categories list all related performances

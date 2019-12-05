@@ -1,0 +1,40 @@
+﻿@page
+@model TicketReservationSystem.Pages.Performances.EditDateModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit a date</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PerformanceDate.Id" />
+            <input type="hidden" asp-for="PerformanceDate.PerformanceId" />
+            <div class="form-group">
+                <label class="control-label">Begins</label>
+                <input asp-for="PerformanceDate.Begins" class="form-control" />
+                <span asp-validation-for="PerformanceDate.Begins" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ends</label>
+                <input asp-for="PerformanceDate.Ends" class="form-control" />
+                <span asp-validation-for="PerformanceDate.Ends" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./IndexDates" asp-route-id="@Model.PerformanceDate.PerformanceId">Back to list</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
