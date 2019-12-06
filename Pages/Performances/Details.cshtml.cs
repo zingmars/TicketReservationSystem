@@ -23,8 +23,9 @@ namespace TicketReservationSystem.Pages.Performances
         }
 
         public Models.Performances Performances { get; set; }
+        public string returnToPage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string id, string returnToPage)
         {
             if (id == null)
             {
@@ -40,6 +41,8 @@ namespace TicketReservationSystem.Pages.Performances
             {
                 return NotFound();
             }
+
+            this.returnToPage = returnToPage;
             return Page();
         }
     }

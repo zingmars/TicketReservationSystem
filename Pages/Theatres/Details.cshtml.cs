@@ -24,8 +24,9 @@ namespace TicketReservationSystem.Pages.Theatres
 
         public Models.Theatres Theatres { get; set; }
         public IList<Models.Performances> Performances { get;set; }
+        public string returnToPage {get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string id, string returnToPage)
         {
             if (id == null)
             {
@@ -42,6 +43,8 @@ namespace TicketReservationSystem.Pages.Theatres
             {
                 return NotFound();
             }
+            
+            this.returnToPage = returnToPage;
             return Page();
         }
     }
