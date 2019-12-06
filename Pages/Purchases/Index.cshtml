@@ -22,7 +22,10 @@
                 @Html.DisplayNameFor(model => model.Purchases[0].Performance)
             </th>
             <th>
-                Seat Number
+                Date
+            </th>
+            <th>
+                Seat number
             </th>
             <th>
                 Amount paid
@@ -31,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.Purchases[0].Purchased)
             </th>
             <th>
-                Method
+                Payment method
             </th>
             <th></th>
         </tr>
@@ -45,6 +48,9 @@
                 </td>
                 <td>
                     <a asp-page="../Performances/Details" asp-route-id="@item.Performance.Id">@Html.DisplayFor(modelItem => item.Performance.Name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerformanceDate.Begins)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SeatId)

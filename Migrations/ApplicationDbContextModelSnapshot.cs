@@ -543,6 +543,12 @@ namespace TicketReservationSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TicketReservationSystem.Models.PerformanceDates", "PerformanceDate")
+                        .WithMany("Purchases")
+                        .HasForeignKey("PerformanceDatesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TicketReservationSystem.Models.PurchaseMethods", "PurchaseMethod")
                         .WithMany("Purchases")
                         .HasForeignKey("PurchaseMethodId")

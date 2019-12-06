@@ -33,6 +33,7 @@ namespace TicketReservationSystem.Pages.Purchases
 
             Purchases = await Context.Purchases
                 .Include(p => p.Performance)
+                .Include(p => p.PerformanceDate)
                 .Include(p => p.PurchaseMethod)
                 .Include(p => p.User).ToListAsync();
 

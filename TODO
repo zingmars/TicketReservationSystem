@@ -8,6 +8,9 @@ These should be implemented for a full system. None of these will be implemented
 5. Administrator's user view - Admin should be able to manage the users from within the web app
 6. Payments
 7. Date-time picker for event dates that works with all browsers (Only Blink and MSHTML based browsers support datetime-local inputs generated for these fields)
+8. Admins should be able to see all tickets for a particular event date
+9. Fix pages with input fields not repopulating some hidden fields after errorneous input
+10. Any leftover TODO items in the code (do full directory search to find them).
 
 These should probably have been implemented, but weren't (yet):
 1. When opening detail views for things like performances or theatres, they should have a "Go back" link instead of "Back to list" link if the user came from a different section.
@@ -16,5 +19,4 @@ These should probably have been implemented, but weren't (yet):
 4. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
 5. Search functionality
 6. Translate in Latvian
-7. Add event date information (selection, viewing) to admin's purchase view
-8. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
+7. Categories: Adding them to performances, having performances list related categories and having categories list all related performances

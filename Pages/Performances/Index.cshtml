@@ -46,7 +46,13 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PerformanceDates.First(x => x.Begins > DateTime.Now).Begins)
+                @if (item.PerformanceDates.Count() > 0)
+                {
+                    <span>@item.PerformanceDates.First(x => x.Begins > DateTime.Now).Begins</span>
+                } else 
+                {
+                    <span>No shows planned :(</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
@@ -61,7 +67,10 @@
                     <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a><span> |</span>
                     <a asp-page="./IndexDates" asp-route-id="@item.Id">Modify dates</a><span> |</span>
                 }
-                <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.Id">Buy a ticket!</a> |
+                @if (item.PerformanceDates.Count() > 0)
+                {
+                <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.Id">Buy a ticket!</a><span> |</span>
+                }
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>

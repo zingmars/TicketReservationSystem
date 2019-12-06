@@ -24,6 +24,10 @@
                 <select asp-for="Purchases.PerformanceId" class ="form-control" asp-items="ViewBag.PerformanceId"></select>
             </div>
             <div class="form-group">
+                <label class="control-label">Performance date</label>
+                <select asp-for="Purchases.PerformanceDate.Id" class ="form-control" asp-items="ViewBag.PerformanceDateId"></select>
+            </div>
+            <div class="form-group">
                 <label class="control-label">Seat number</label>
                 <input asp-for="Purchases.SeatId" class="form-control" />
                 <span asp-validation-for="Purchases.SeatId" class="text-danger"></span>

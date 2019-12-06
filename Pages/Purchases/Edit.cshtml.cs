@@ -40,18 +40,17 @@ namespace TicketReservationSystem.Pages.Purchases
 
             Purchases = await Context.Purchases
                 .Include(p => p.Performance)
+                .Include(p => p.PerformanceDate)
                 .Include(p => p.PurchaseMethod)
                 .Include(p => p.User).FirstOrDefaultAsync(m => m.Id == id);
             
-            // TODO: Performance dates
-
             if (Purchases == null)
             {
                 return NotFound();
             }
 
             ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
-            ViewData["PurchaseDateId"] = new SelectList(Context.PerformanceDates, "Id", "Begins");
+            ViewData["PerformanceDateId"] = new SelectList(Context.PerformanceDates.Where(x => x.PerformanceId == Purchases.PerformanceId), "Id", "Begins");
             ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");            
             ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "UserName");
             return Page();

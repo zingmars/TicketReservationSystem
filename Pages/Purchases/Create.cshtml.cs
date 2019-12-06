@@ -31,6 +31,8 @@ namespace TicketReservationSystem.Pages.Purchases
 
             ViewData["PerformanceId"] = new SelectList(Context.Performances, "Id", "Name");
             ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
+            // TODO: Dynamically filter dates as you change performances.
+            ViewData["PerformanceDateId"] = new SelectList(Context.PerformanceDates, "Id", "Begins");
             ViewData["UserId"] = new SelectList(Context.AspNetUsers, "Id", "UserName");
             return Page();
         }
@@ -51,6 +53,11 @@ namespace TicketReservationSystem.Pages.Purchases
                 return Page();
             }
             
+            Purchases.PerformanceDate = Context.PerformanceDates.First(x => x.Id ==  Purchases.PerformanceDate.Id);
+            if (Purchases.PerformanceDate.PerformanceId != Purchases.PerformanceId) {
+                return Page();
+            }
+
             Purchases.Id = Guid.NewGuid().ToString();
             Purchases.ConcurrencyStamp = Guid.NewGuid().ToString();
             Purchases.Purchased = DateTime.Now;
