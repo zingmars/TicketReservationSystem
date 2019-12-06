@@ -56,7 +56,7 @@
 @foreach (var item in Model.Performances) {
         <tr>
             <td>
-                <a asp-page="../Performances/Details" asp-route-id="@item.Id" asp-route-returnToPage="true">@Html.DisplayFor(modelItem => item.Name)</a>
+                <a asp-page="../Performances/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
@@ -72,13 +72,6 @@
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
         <a asp-page="./Edit" asp-route-id="@Model.Theatres.Id">Edit</a><span> |</span>
-    }    
-        @if (@Model.returnToPage != null)
-    {
-        <a href="javascript:history.back()">Go back</a>
-    } 
-    else 
-    {
-        <a asp-page="./Index">Back to List</a>
-    }
+    }   
+    <a href="javascript:history.back()">Go back</a> 
 </div>

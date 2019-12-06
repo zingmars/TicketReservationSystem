@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-page="../Theatres/Details" asp-route-id="@item.Theatre.Id" asp-route-returnToPage="true">@Html.DisplayFor(modelItem => item.Theatre.Name)</a>
+                <a asp-page="../Theatres/Details" asp-route-id="@item.Theatre.Id">@Html.DisplayFor(modelItem => item.Theatre.Name)</a>
             </td>
             <td>
                 @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))

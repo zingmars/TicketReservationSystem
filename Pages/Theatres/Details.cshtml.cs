@@ -26,7 +26,7 @@ namespace TicketReservationSystem.Pages.Theatres
         public IList<Models.Performances> Performances { get;set; }
         public string returnToPage {get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id, string returnToPage)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {

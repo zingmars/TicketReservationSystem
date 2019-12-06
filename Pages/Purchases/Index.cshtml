@@ -47,7 +47,7 @@
                     @Html.DisplayFor(modelItem => item.User.UserName)
                 </td>
                 <td>
-                    <a asp-page="../Performances/Details" asp-route-id="@item.Performance.Id" asp-route-returnToPage="true">@Html.DisplayFor(modelItem => item.Performance.Name)</a>
+                    <a asp-page="../Performances/Details" asp-route-id="@item.Performance.Id">@Html.DisplayFor(modelItem => item.Performance.Name)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PerformanceDate.Begins)
