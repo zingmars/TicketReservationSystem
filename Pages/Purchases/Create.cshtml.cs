@@ -52,9 +52,15 @@ namespace TicketReservationSystem.Pages.Purchases
             {
                 return Page();
             }
-            
+
             Purchases.PerformanceDate = Context.PerformanceDates.First(x => x.Id ==  Purchases.PerformanceDate.Id);
             if (Purchases.PerformanceDate.PerformanceId != Purchases.PerformanceId) {
+                return Page();
+            }
+            if (Context.Purchases.First(x => x.Id == Purchases.Performance.TheatreId && x.SeatId == Purchases.SeatId) != null) {
+                return Page();
+            }
+            if (Purchases.SeatId > Context.Theatres.First(x => x.Id == Purchases.Performance.TheatreId).Seats) {
                 return Page();
             }
 

@@ -38,7 +38,7 @@ namespace TicketReservationSystem.Pages.Purchases
 
             ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
             ViewData["PerformanceDateId"] = new SelectList(Context.PerformanceDates.Where(x => x.PerformanceId == PerformanceId).ToList(), "Id", "Begins");
-            return Page();                                               
+            return Page();
         }
 
         [BindProperty]
@@ -56,13 +56,19 @@ namespace TicketReservationSystem.Pages.Purchases
             {
                 return Page();
             }
-            
+
+            long seatId = Context.Purchases.Count(x => x.PerformanceId == Purchases.PerformanceId) + 1;
+            if (seatId > Context.Theatres.First(x => x.Id == Purchases.Performance.TheatreId).Seats) {
+                return Page();
+            }
+
             Purchases.Id = Guid.NewGuid().ToString();
             Purchases.UserId = UserManager.GetUserId(User);
             Purchases.ConcurrencyStamp = Guid.NewGuid().ToString();
             Purchases.Purchased = DateTime.Now;
             Purchases.Edited = DateTime.Now;
             Purchases.AmountPaid = Context.Performances.First(x => x.Id == Purchases.PerformanceId).Price;
+            Purchases.SeatId = seatId;
 
             Context.Purchases.Add(Purchases);
             await Context.SaveChangesAsync();

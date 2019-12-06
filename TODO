@@ -13,7 +13,6 @@ These should be implemented for a full system. None of these will be implemented
 10. Any leftover TODO items in the code (do full directory search to find them).
 
 These should probably have been implemented, but weren't (yet):
-1. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat count.
-2. Search functionality [ Basic JS frontend search in each of the index (list) pages is good enough for the prototype ]
-3. Categories: Adding them to performances, having performances list related categories and having categories list all related performances [ Similar to performance dates ]
-4. Translate to Latvian
+1. Search functionality [ Basic JS frontend search in each of the index (list) pages is good enough for the prototype ]
+2. Categories: Adding them to performances, performances should list related categories and having categories list all related performances [ Similar to how dates work ]
+3. Translate to Latvian

@@ -431,6 +431,7 @@ namespace TicketReservationSystem.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("Seats")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

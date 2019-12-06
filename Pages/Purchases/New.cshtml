@@ -21,11 +21,6 @@
                 <select asp-for="Purchases.PerformanceDateId" class ="form-control" asp-items="ViewBag.PerformanceDateId"></select>
             </div>
             <div class="form-group">
-                <label class="control-label">Seat number</label>
-                <input asp-for="Purchases.SeatId" class="form-control" />
-                <span asp-validation-for="Purchases.SeatId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -34,7 +29,7 @@
 <div>
     <b>There are no actual payment systems implemented in this prototype. Go on lad/lass, this one's on us!</b>
 </div>
-<div>    
+<div>
     <a asp-page="Index">Back to List</a>
 </div>
 

@@ -85,7 +85,7 @@ namespace TicketReservationSystem.Migrations
                     NormalizedName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    Seats = table.Column<long>(nullable: true),
+                    Seats = table.Column<long>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
