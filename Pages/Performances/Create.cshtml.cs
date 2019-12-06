@@ -50,6 +50,8 @@ namespace TicketReservationSystem.Pages.Performances
             Performances.Id = Guid.NewGuid().ToString();
             Performances.NormalizedName = Performances.Name.ToUpper();
             Performances.ConcurrencyStamp = Guid.NewGuid().ToString();
+            // TODO: Only for prototype demonstration!
+            Performances.Price = Performances.Price != null ? (double)Math.Round((decimal)Performances.Price, 2, MidpointRounding.AwayFromZero) : 0.00;
 
             Context.Performances.Add(Performances);
             await Context.SaveChangesAsync();

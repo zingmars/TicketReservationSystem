@@ -62,6 +62,8 @@ namespace TicketReservationSystem.Pages.Purchases
             Purchases.ConcurrencyStamp = Guid.NewGuid().ToString();
             Purchases.Purchased = DateTime.Now;
             Purchases.Edited = DateTime.Now;
+            // TODO: Only for prototype demonstration!
+            Purchases.AmountPaid =  Purchases.AmountPaid != null ? (double)Math.Round((decimal)Purchases.AmountPaid, 2, MidpointRounding.AwayFromZero) : 0.00;
 
             Context.Purchases.Add(Purchases);
             await Context.SaveChangesAsync();

@@ -13,8 +13,7 @@ These should be implemented for a full system. None of these will be implemented
 10. Any leftover TODO items in the code (do full directory search to find them).
 
 These should probably have been implemented, but weren't (yet):
-1. Price validation - price should have only be allowed to have 2 numbers after the decimal point
-2. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
-3. Search functionality
-4. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
-5. Translate to Latvian
+1. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
+2. Search functionality
+3. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
+4. Translate to Latvian
