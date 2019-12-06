@@ -14,9 +14,8 @@ These should be implemented for a full system. None of these will be implemented
 
 These should probably have been implemented, but weren't (yet):
 1. When opening detail views for things like performances or theatres, they should have a "Go back" link instead of "Back to list" link if the user came from a different section.
-2. Validation for event date creation (/Pages/Performances/CreateDates.cshtml.cs line 57+)
-3. Price validation - price should have only be allowed to have 2 numbers after the decimal point
-4. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
-5. Search functionality
-6. Translate in Latvian
-7. Categories: Adding them to performances, having performances list related categories and having categories list all related performances
+2. Price validation - price should have only be allowed to have 2 numbers after the decimal point
+3. Seat numbers on tickets should be generated in a sequence. Make theatre seat count mandatory (non-nullable). Max ticket count = theatre seat couunt.
+4. Search functionality
+5. Translate in Latvian
+6. Categories: Adding them to performances, having performances list related categories and having categories list all related performances

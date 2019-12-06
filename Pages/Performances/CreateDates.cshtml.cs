@@ -54,7 +54,13 @@ namespace TicketReservationSystem.Pages.Performances
                 return Page();
             }
 
-            //TODO: Check if there's already an event at this time
+            // Check if there's already an event at this time
+            if (Context.PerformanceDates
+                .Where(x => x.PerformanceId == PerformanceDates.PerformanceId)
+                .Any(x=> (x.Begins >= PerformanceDates.Begins && x.Begins <= PerformanceDates.Ends) 
+                        || (x.Ends <= PerformanceDates.Ends && x.Ends >= PerformanceDates.Begins))) {
+                return Page();
+            }
             if (PerformanceDates.Begins > PerformanceDates.Ends){
                 //TODO: Error message
                 //TODO: Pass PerformanceId back. If this triggers this field won't be re-populated properly.
