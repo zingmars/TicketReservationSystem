@@ -7,55 +7,70 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>List of theatres</h1>
+<h1>Teātru saraksts</h1>
 
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <a asp-page="Create">Create New</a>
+        <button type="button" asp-page="Create" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot"><i class="fas fa-plus"></i></button>
     }
 </p>
+
+<form class="form-inline">
+    <div class="form-group mb-2">
+        <select asp-for="TheatrePerformance" asp-items="Model.Performances" class="custom-select">
+            <option value="">Visas izrādes</option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" asp-for="SearchString" id="inputCity" placeholder="Ievadiet pilsētu">
+    </div>
+    <button type="submit" class="btn btn-dark mb-2" data-toggle="tooltip" data-placement="top" title="Meklēt"><i class="fas fa-search"></i></button>
+</form>
+
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Theatres[0].Name)
+        <tr class="d-flex text-center">
+            <th class="col-3">
+                Nosaukums
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Theatres[0].Description)
+            <th class="col-3">
+                Apraksts
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Theatres[0].Address)
+            <th class="col-3">
+                Adrese
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Theatres[0].Seats)
+            <th class="col-1">
+                Sēdvietu skaits
             </th>
-            <th></th>
+            <th class="col-2"></th> <!-- Vieta priekš darbību pogām -->
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Theatres)
         {
-            <tr>
-                <td>
+            <tr class="d-flex">
+                <td class="col-3">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td class="col-3 text-justify">
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                <td>
+                <td class="col-3"> 
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>
-                <td>
+                <td class="col-1 text-center">
                     @Html.DisplayFor(modelItem => item.Seats)
                 </td>
-                <td>
-                    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
-                    {
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a><span> |</span>
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a><span> |</span>
-                    }
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                <td class="col-2">
+                    <div class="btn-group" role="group" aria-label="Izvēlne">
+                        <button asp-page="./Details" asp-route-id="@item.Id" type="button" class="btn btn-dark">Apskatīt</button>
+                        @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+                        {
+                            <button asp-page="./Edit" asp-route-id="@item.Id" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></button>
+                            <button asp-page="./Delete" asp-route-id="@item.Id" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></button>                        
+                        }                        
+                    </div>
                 </td>
             </tr>
         }                

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketReservationSystem.Authorization;
@@ -23,7 +24,7 @@ namespace TicketReservationSystem.Data
 
                 var adminID = await EnsureUser(serviceProvider, testUserPw, "admin@admin.com");
                 await EnsureRole(serviceProvider, adminID, Constants.Administrator);
-                
+
                 var bookkeeperID = await EnsureUser(serviceProvider, testUserPw, "bookkeeper@bookkeeper.com");
                 await EnsureRole(serviceProvider, bookkeeperID, Constants.Bookkeeper);
 
@@ -84,53 +85,42 @@ namespace TicketReservationSystem.Data
                 return;   // DB has been seeded
             }
 
+            var catId1 = Guid.NewGuid().ToString();
+            var catId2 = Guid.NewGuid().ToString();
+            var catId3 = Guid.NewGuid().ToString();
+            var catId4 = Guid.NewGuid().ToString();
+
             context.Categories.AddRange(
                 new Categories
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Musical",
+                    Id = catId1,
+                    Name = "Pasaka",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedName = "MUSICAL",
+                    NormalizedName = "PASAKA",
                     Description = ""
                 },
                 new Categories
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Romance",
+                    Id = catId2,
+                    Name = "Koncerts",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedName = "ROMANCE",
+                    NormalizedName = "KONCERTS",
                     Description = ""
                 },
                 new Categories
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Comedy",
+                    Id = catId3,
+                    Name = "Komēdija",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedName = "COMEDY",
+                    NormalizedName = "KOMEDIJA",
                     Description = ""
                 },
                 new Categories
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Tragedy",
+                    Id = catId4,
+                    Name = "Drāma",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedName = "TRAGEDY",
-                    Description = ""
-                },
-                new Categories
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Horror",
-                    ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedName = "HORROR",
-                    Description = ""
-                },
-                new Categories
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Fantasy",
-                    ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedName = "FANTASY",
+                    NormalizedName = "DRAMA",
                     Description = ""
                 }
             );
@@ -159,6 +149,131 @@ namespace TicketReservationSystem.Data
                     Description = "",
                     Name = "Method 3",
                     NormalizedName = "METHOD 3"
+                }
+            );
+
+            var thId1 = Guid.NewGuid().ToString();
+
+            var bh1 = new List<BusinessHours> {
+                new BusinessHours
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Day = 1,
+                    Begins = "10",
+                    Ends = "19",
+                    TheatreId = thId1
+                },
+                new BusinessHours
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Day = 2,
+                    Begins = "10",
+                    Ends = "19",
+                    TheatreId = thId1
+                },
+                new BusinessHours
+                {
+                    Day = 3,
+                    Begins = "10",
+                    Ends = "19",
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    TheatreId = thId1
+                },
+                new BusinessHours
+                {
+                    Day = 4,
+                    Begins = "10",
+                    Ends = "19",
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    TheatreId = thId1
+                },
+                new BusinessHours
+                {
+                    Day = 5,
+                    Begins = "10",
+                    Ends = "19",
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    TheatreId = thId1
+                },
+                new BusinessHours
+                {
+                    Day = 6,
+                    Begins = "11",
+                    Ends = "18",
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    TheatreId = thId1
+                },
+                new BusinessHours
+                {
+                    Day = 7,
+                    Begins = "11",
+                    Ends = "18",
+                    Id = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    TheatreId = thId1
+                }
+            };
+
+            context.Theatres.AddRange(
+                new Theatres
+                {
+                    Id = thId1,
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Name = "Latvijas Nacionālais teātris",
+                    NormalizedName = "LATVIJAS NACIONALAIS TEATRIS",
+                    Address = "Kronvalda bulvāris 2, Centra rajons, Rīga, LV-1010",
+                    Seats = 750,
+                    Description = "Latvijas Nacionālais teātris ir teātris Rīgā, Latvijā, kas tika atklāts 1919.g. 30.novembrī. " +
+                    "Teātra ēka celta 1902. gadā kā Rīgas 2. pilsētas teātris par Rīgas pilsētas valdes līdzekļiem. " +
+                    "Latvijas Nacionālā teātra uzturēšanā piedalās Latvijas valsts, Latvijas Kultūras fonds un Rīgas pilsēta.",                    
+                }            
+            );
+
+            context.BusinessHours.AddRange(bh1);
+
+            var pfId1 = Guid.NewGuid().ToString();
+
+            context.Performances.AddRange(
+                new Performances
+                {
+                    Id = pfId1,                    
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    Name = "Baltā pasaka",
+                    NormalizedName = "BALTA PASAKA",
+                    Description = "Ja nu dabas apstākļi mūs decembrī vēl nelutinās ar baltu sniegu un vieglu salu Rīgas ielās, " +
+                    "tad Nacionālā teātra Ziemassvētku koncertā tā visa būs atliku likām – balts mirdzums uz skatuves, aktieru tērpos, " +
+                    "viņu runātajos tekstos un dziesmās.",
+                    Price = 25.00,
+                    TheatreId = thId1
+                }
+            );
+
+            context.PerformanceCategories.AddRange(
+                new PerformanceCategories
+                {
+                    CategoryId = catId1,
+                    PerformanceId = pfId1
+                },
+                new PerformanceCategories
+                {
+                    CategoryId = catId2,
+                    PerformanceId = pfId1
+                }
+            );
+
+            context.PerformanceDates.AddRange(
+                new PerformanceDates
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    PerformanceId = pfId1,
+                    Begins = DateTime.Parse("02.01.2019 19:00"),
+                    Ends = DateTime.Parse("02.01.2019 22:00"),
                 }
             );
 
