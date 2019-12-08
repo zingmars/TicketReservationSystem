@@ -12,7 +12,7 @@
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <button type="button" asp-page="Create" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot"><i class="fas fa-plus"></i></button>
+        <a role="button" asp-page="Create" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot"><i class="fas fa-plus"></i></a>
     }
 </p>
 
@@ -64,11 +64,11 @@
                 </td>
                 <td class="col-2">
                     <div class="btn-group" role="group" aria-label="Izvēlne">
-                        <button asp-page="./Details" asp-route-id="@item.Id" type="button" class="btn btn-dark">Apskatīt</button>
+                        <a role="button" asp-page="./Details" asp-route-id="@item.Id" class="btn btn-dark">Apskatīt</a>
                         @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
                         {
-                            <button asp-page="./Edit" asp-route-id="@item.Id" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></button>
-                            <button asp-page="./Delete" asp-route-id="@item.Id" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></button>                        
+                            <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
+                            <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>                        
                         }                        
                     </div>
                 </td>
