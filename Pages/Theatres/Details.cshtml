@@ -39,8 +39,8 @@
     </dl>
 </div>
 @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
-{
-    <a class="btn btn-secondary" role="button" asp-page="./Edit" asp-route-id="@Model.Theatres.Id">Rediģēt</a>
+{   
+    <a class="btn btn-secondary" role="button" asp-page="./Edit" asp-route-id="@Model.Theatres.Id">Rediģēt</a>            
 }
 <br>
 <br>
@@ -49,20 +49,20 @@
 <div class="row">
     @foreach (var item in Model.Performances)
     {
-    <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://i.imgur.com/7SvqkmA.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                <a asp-page="../Performances/Details" asp-route-id="@item.Id" class="btn btn-info">Lasīt vairāk</a>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://i.imgur.com/7SvqkmA.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <a asp-page="../Performances/Details" asp-route-id="@item.Id" class="btn btn-info">Lasīt vairāk</a>
+                </div>
             </div>
         </div>
-    </div>
     }
 </div>
 <br>
 <br>
 <div>
-    <a class="btn btn-dark" role="button" href="javascript:history.back()">Atgriezties atpakaļ</a>
+    <a href="javascript:history.back()">Atgriezties atpakaļ</a>
 </div>
