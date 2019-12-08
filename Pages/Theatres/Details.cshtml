@@ -7,71 +7,72 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Theatre details</h1>
+<h1>Informācija par teātri</h1>
+<br>
+<br>
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Theatres.Name)
+            Nosaukums
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Theatres.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Theatres.Description)
+            Apraksts
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Theatres.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Theatres.Address)
+            Adrese
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Theatres.Address)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Theatres.Seats)
+            Sēdvietu skaits
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Theatres.Seats)
         </dd>
     </dl>
 </div>
-
-<h4>Related performances</h4>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Price)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Performances) {
-        <tr>
-            <td>
-                <a asp-page="../Performances/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-        </tr>
+@if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+{
+    <a class="btn btn-secondary" role="button" asp-page="./Edit" asp-route-id="@Model.Theatres.Id">Rediģēt</a>
 }
-    </tbody>
-</table>
-<div>
-    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+<br>
+<br>
+<h4>Izrādes</h4>
+
+<div class="row">
+    @foreach (var item in Model.Performances)
     {
-        <a asp-page="./Edit" asp-route-id="@Model.Theatres.Id">Edit</a><span> |</span>
-    }   
-    <a href="javascript:history.back()">Go back</a> 
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="https://i.imgur.com/7SvqkmA.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                <a asp-page="../Performances/Details" asp-route-id="@item.Id" class="btn btn-info">Lasīt vairāk</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="https://i.imgur.com/7SvqkmA.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                <a asp-page="../Performances/Details" asp-route-id="@item.Id" class="btn btn-info">Lasīt vairāk</a>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+<br>
+<br>
+<div>
+    <a class="btn btn-dark" role="button" href="javascript:history.back()">Atgriezties atpakaļ</a>
 </div>
