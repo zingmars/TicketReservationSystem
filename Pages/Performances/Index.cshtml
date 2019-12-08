@@ -7,71 +7,108 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>List of upcoming performances</h1>
+<h1>Repertuārs</h1>
 
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <a asp-page="Create">Create New</a>
+        <a role="button" asp-page="Create" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot"><i class="fas fa-plus"></i></a>
     }
 </p>
+
+<form class="form-inline">
+    <div class="form-group mb-2">
+        <select asp-for="PerformanceCategory" asp-items="Model.Categories" class="custom-select">
+            <option value="">Visas kategorijas</option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" asp-for="SearchString" id="inputCity" placeholder="Ievadiet nosaukumu">
+    </div>
+    <button type="submit" class="btn btn-dark mb-2" data-toggle="tooltip" data-placement="top" title="Meklēt"><i class="fas fa-search"></i></button>
+</form>
+
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Name)
+        <tr class="d-flex text-center">
+            <th class="col-3">
+                Nosaukums
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Description)
+            <th class="col-3">
+                Apraksts
             </th>
-            <th>
-                Next show
+            <th class="col-1">
+                Datumi
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Price)
+            <th class="col-1">
+                Cena (€)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Performances[0].Theatre)
+            <th class="col-2">
+                Teātris
             </th>
-            <th></th>
+            <th class="col-2"></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Performances) {
-        <tr>
-            <td>
+        <tr class="d-flex">
+            <td class="col-3">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td class="col-3 text-justify">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @if (item.PerformanceDates.Count() > 0)
-                {
-                    <span>@item.PerformanceDates.First(x => x.Begins > DateTime.Now).Begins</span>
-                } else 
-                {
-                    <span>No shows planned :(</span>
+            <td class="col-1">
+                <a class="btn btn-success" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Atlasīt</a>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample1" style="min-width:260px;">
+                            <div class="card card-body" style="z-index:1">
+                                @if (item.PerformanceDates.Count() > 0 && item.PerformanceDates.Any(p => p.Begins > DateTime.Now))
+                                {
+                                    <ul class="list-group">
+                                        @foreach (var date in item.PerformanceDates.Where(p => p.Begins > DateTime.Now))
+                                        {
+                                            var startDate = date.Begins.ToString("dd/MM/yyyy HH:mm");
+                                            var endDate = date.Ends.ToString("HH:mm");
+                                        <li class="list-group-item">@Html.DisplayFor(modelItem => startDate)-@Html.DisplayFor(modelItem => endDate)</li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>Tuvākajā laikā nekas nav ieplānots.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="col-1 text-center">
+                @{
+                    var price = item.Price.HasValue? item.Price.Value.ToString("N2") : "-";
                 }
+                @Html.DisplayFor(modelItem => price)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
+            <td class="col-2">
                 <a asp-page="../Theatres/Details" asp-route-id="@item.Theatre.Id">@Html.DisplayFor(modelItem => item.Theatre.Name)</a>
             </td>
-            <td>
+            <td class="col-2">
+                <div class="btn-group" role="group" aria-label="Izvēlne">
+                    <a role="button" asp-page="./Details" asp-route-id="@item.Id" class="btn btn-dark">Apskatīt</a>
+                    @if (item.PerformanceDates.Count() > 0 && item.PerformanceDates.Any(p => p.Begins > DateTime.Now))
+                    {
+                        <a role="button" asp-page="../Purchases/New" asp-route-PerformanceId="@item.Id" class="btn btn-warning"><i class="fas fa-shopping-bag"></i> Pirkt</a>
+                    }
+                </div>
                 @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
-                {
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a><span> |</span>
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a><span> |</span>
-                    <a asp-page="./IndexDates" asp-route-id="@item.Id">Modify dates</a><span> |</span>
+                {   
+                    <div class="btn-group" role="group" aria-label="Izvēlne" style="padding-top: 10px">
+                        <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
+                        <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
+                        <a role="button" asp-page="./IndexDates" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Izmainīt datumus"><i class="fas fa-calendar-alt"></i></a>
+                    </div>
                 }
-                @if (item.PerformanceDates.Count() > 0)
-                {
-                <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.Id">Buy a ticket!</a><span> |</span>
-                }
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }

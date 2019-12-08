@@ -272,8 +272,8 @@ namespace TicketReservationSystem.Data
                 {
                     Id = Guid.NewGuid().ToString(),
                     PerformanceId = pfId1,
-                    Begins = DateTime.Parse("02.01.2019 19:00"),
-                    Ends = DateTime.Parse("02.01.2019 22:00"),
+                    Begins = DateTime.Parse("02.01.2020 19:00"),
+                    Ends = DateTime.Parse("02.01.2020 22:00"),
                 }
             );
 
