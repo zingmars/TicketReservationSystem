@@ -7,44 +7,54 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Performance dates for @Model.PerformanceName</h1>
+<h1>Izrādes "@Model.PerformanceName" datumi</h1>
 
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <a asp-page="./CreateDates" asp-route-id="@Model.PerformanceId">Add a new date</a>
+        <a role="button" asp-page="./CreateDates" asp-route-id="@Model.PerformanceId" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot jaunu datumu"><i class="fas fa-plus"></i></a>        
     }
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PerformanceDates[0].Begins)
+                Sākums
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PerformanceDates[0].Ends)
+                Beigas
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.PerformanceDates) {
+    @foreach (var item in Model.PerformanceDates)
+    {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Begins)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ends)
-            </td>
-            <td>
-                @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
-                {
-                    <a asp-page="./EditDate" asp-route-id="@item.Id">Edit</a><span> |</span>
-                    <a asp-page="./DeleteDate" asp-route-id="@item.Id">Delete</a><span> |</span>
+                @{
+                    var startDate = item.Begins.ToString("dd/MM/yyyy HH:mm");
+                    var endDate = item.Ends.ToString("dd/MM/yyyy HH:mm");
                 }
-                <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" asp-route-PerformanceDateId="@item.Id">Buy ticket!</a>
+                @Html.DisplayFor(modelItem => startDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => endDate)
+            </td>
+            <td> 
+                <div class="btn-group" role="group" aria-label="Izvēlne">
+                    @if (item.Begins > DateTime.Now)
+                    {
+                        <a role="button" asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" asp-route-PerformanceDateId="@item.Id" class="btn btn-warning"><i class="fas fa-shopping-bag"></i> Pirkt</a>
+                    }
+                    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+                    {
+                        <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
+                        <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
+                    }
+                </div>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

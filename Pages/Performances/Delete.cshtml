@@ -6,29 +6,31 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Are you sure you want to delete this?</h1>
+<h1>Vai Jūs tiešām vēlaties izdzēst šo izrādi?</h1>
+<br>
+<br>
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Name)
+            Nosaukums
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Performances.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Description)
+            Apraksts
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Performances.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Price)
+            Cena
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Performances.Price)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Theatre)
+            Teātris
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Performances.Theatre.Name)
@@ -37,7 +39,9 @@
     
     <form method="post">
         <input type="hidden" asp-for="Performances.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <input type="submit" value="Dzēst" class="btn btn-danger" />
+            <a class="btn btn-secondary" role="button" asp-page="./Index">Atpakaļ</a>
+        </div>
     </form>
 </div>
