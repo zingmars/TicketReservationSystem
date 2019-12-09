@@ -31,22 +31,20 @@ namespace TicketReservationSystem.Pages.Purchases
                 return Redirect("/Error");
             }
 
-            this.Purchases = new Models.Purchases();
-            this.Purchases.PerformanceId = PerformanceId;
-            this.Purchases.Performance = Context.Performances.First(x => x.Id == PerformanceId);
-            this.Purchases.PerformanceDateId = PerformanceDateId;
-
             ViewData["PurchaseMethodId"] = new SelectList(Context.PurchaseMethods, "Id", "Name");
             ViewData["PerformanceDateId"] = new SelectList(Context.PerformanceDates.Where(x => x.PerformanceId == PerformanceId).ToList(), "Id", "Begins");
+            Performance = Context.Performances.FirstOrDefault(x => x.Id == PerformanceId);
+
             return Page();
         }
 
         [BindProperty]
-        public Models.Purchases Purchases { get; set; }
+        public Models.Purchases Purchases { get; set; }        
+        public Models.Performances Performance { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string PerformanceId, string PerformanceDateId)
         {
             if (!User.Identity.IsAuthenticated) {
                 return Redirect("/Identity/Account/Login?returnUrl=/Purchases/New");
@@ -57,17 +55,20 @@ namespace TicketReservationSystem.Pages.Purchases
                 return Page();
             }
 
-            long seatId = Context.Purchases.Count(x => x.PerformanceId == Purchases.PerformanceId) + 1;
-            if (seatId > Context.Theatres.First(x => x.Id == Purchases.Performance.TheatreId).Seats) {
+            Performance = Context.Performances.FirstOrDefault(x => x.Id == PerformanceId);
+
+            long seatId = Context.Purchases.Count(x => x.PerformanceId == Performance.Id) + 1;
+            if (seatId > Context.Theatres.FirstOrDefault(x => x.Id == Performance.TheatreId).Seats) {
                 return Page();
             }
 
             Purchases.Id = Guid.NewGuid().ToString();
+            Purchases.PerformanceId = PerformanceId;
             Purchases.UserId = UserManager.GetUserId(User);
             Purchases.ConcurrencyStamp = Guid.NewGuid().ToString();
             Purchases.Purchased = DateTime.Now;
             Purchases.Edited = DateTime.Now;
-            Purchases.AmountPaid = Context.Performances.First(x => x.Id == Purchases.PerformanceId).Price;
+            Purchases.AmountPaid = Context.Performances.First(x => x.Id == Performance.Id).Price;
             Purchases.SeatId = seatId;
 
             Context.Purchases.Add(Purchases);

@@ -6,27 +6,27 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>List of your purchases</h1>
+<h1>Jūsu pirkumu saraksts</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Purchases[0].Performance)
+                Izrāde
             </th>
             <th>
-                Date
+                Datums
             </th>
             <th>
-                Seat Number
+                Sēdvietas numurs
             </th>
             <th>
-                Amount paid
+                Summa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Purchases[0].Purchased)
+                Ir samaksāts
             </th>
             <th>
-                Method
+                Apmaksas metode
             </th>
             <th></th>
         </tr>
@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
                 </td>
                 <td>
-                    <a href="#">Print</a>
+                    <a role="button" href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Printēt"><i class="fas fa-print"></i></a>                    
                 </td>
             </tr>
         }

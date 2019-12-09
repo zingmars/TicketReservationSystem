@@ -7,34 +7,31 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>List of purchases</h1>
+<h1>Pirkumu saraksts</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Buyer
+                Pircējs
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Purchases[0].Performance)
+                Izrāde
             </th>
             <th>
-                Date
+                Datums
             </th>
             <th>
-                Seat number
+                Sēdvietas numurs
             </th>
             <th>
-                Amount paid
+                Summa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Purchases[0].Purchased)
+                Ir samaksāts
             </th>
             <th>
-                Payment method
+                Apmaksas metode
             </th>
             <th></th>
         </tr>
@@ -65,9 +62,11 @@
                     @Html.DisplayFor(modelItem => item.PurchaseMethod.Name)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    <div class="btn-group" role="group" aria-label="Izvēlne">
+                        <a role="button" asp-page="./Details" asp-route-id="@item.Id" class="btn btn-dark">Apskatīt</a>
+                        <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
+                        <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>                        
+                    </div>
                 </td>
             </tr>
         }
