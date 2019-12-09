@@ -1,11 +1,11 @@
-@page
+﻿@page
 @model TicketReservationSystem.Pages.Categories.EditModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit a category</h1>
+<h1>Rediģēt kategoriju</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -13,24 +13,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Categories.Id" />
             <div class="form-group">
-                <label asp-for="Categories.Name" class="control-label"></label>
+                <label class="control-label">Nosaukums</label>
                 <input asp-for="Categories.Name" class="form-control" />
                 <span asp-validation-for="Categories.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Categories.Description" class="control-label"></label>
+                <label class="control-label">Apraksts</label>
                 <input asp-for="Categories.Description" class="form-control" />
                 <span asp-validation-for="Categories.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Saglabāt" class="btn btn-dark" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Atgriezties atpakaļ</a>
 </div>
 
 @section Scripts {
