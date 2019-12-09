@@ -7,12 +7,13 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
+<h1>Informācija par izrādi</h1>
+<br>
+<br>
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Name)
+            Nosaukums
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Performances.Name)
@@ -21,27 +22,33 @@
             @Html.DisplayNameFor(model => model.Performances.Description)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Performances.Description)
+            Apraksts
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Performances.Price)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Performances.Price)
+            Cena
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Theatre)
+            Teātris
         </dt>
         <dd class="col-sm-10">
             <a asp-page="../Theatres/Details" asp-route-id="@Model.Performances.Theatre.Id">@Html.DisplayFor(model => model.Performances.Theatre.Name)</a>
         </dd>
     </dl>
 </div>
-<h4>Event dates</h4>
+@if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+{
+    <a class="btn btn-secondary" role="button" asp-page="./Edit" asp-route-id="@Model.Performances.Id">Rediģēt</a>    
+}
+<br>
+<br>
+<h4>Izrādes datumi</h4>
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <a asp-page="./CreateDates" asp-route-id="@Model.Performances.Id">Add a new date</a>
+        <a role="button" asp-page="./CreateDates" asp-route-id="@Model.Performances.Id" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot datumu"><i class="fas fa-plus"></i></a>        
     }
 </p>
 <div>
@@ -49,35 +56,37 @@
         <thead>
             <tr>
                 <th>
-                    Begins
+                    Sākums
                 </th>
                 <th>
-                    Ends
+                    Beigas
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model.Performances.PerformanceDates) {
+            @foreach (var item in Model.Performances.PerformanceDates)
+            {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Begins)
+                    @{ var startDate = item.Begins.ToString("dd/MM/yyyy HH:mm");
+                        var endDate = item.Ends.ToString("dd/MM/yyyy HH:mm");}
+                    @Html.DisplayFor(modelItem => startDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Ends)
+                    @Html.DisplayFor(modelItem => endDate)
                 </td>
-                <td>
-                    <a asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" asp-route-PerformanceDateId="@item.Id">Buy ticket!</a>
-                </td>
+                @if (item.Begins > DateTime.Now)
+                {
+                    <td>
+                        <a role="button" asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" class="btn btn-warning"><i class="fas fa-shopping-bag"></i> Pirkt</a>
+                    </td>
+                }
             </tr>
-    }
+            }
         </tbody>
     </table>
 </div>
 <div>
-    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
-    {
-        <a asp-page="./Edit" asp-route-id="@Model.Performances.Id">Edit</a> <span> |</span>
-    }
-    <a href="javascript:history.back()">Go back</a>
+    <a href="javascript:history.back()">Atgriezties atpakaļ</a>
 </div>
