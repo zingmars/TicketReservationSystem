@@ -1,0 +1,54 @@
+﻿@page
+@model TicketReservationSystem.Pages.Performances.IndexCategoriesModel
+@using TicketReservationSystem.Authorization
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Izrādes "@Model.PerformanceName" kategorijas</h1>
+
+<p>
+    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+    {
+        <a role="button" asp-page="./CreateCategory" asp-route-id="@Model.PerformanceId" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot jaunu kategoriju"><i class="fas fa-plus"></i></a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nosaukums
+            </th>
+            <th>
+                Apraksts
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PerformanceCategories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Description)
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Izvēlne">
+                        @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+                        {                            
+                            <a role="button" asp-page="./DeleteCategory" asp-route-categoryId="@item.CategoryId" asp-route-performanceId="@item.PerformanceId" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-page="./Index">Atgriezties atpakaļ</a>
+</div>
+

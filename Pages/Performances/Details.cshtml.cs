@@ -23,6 +23,7 @@ namespace TicketReservationSystem.Pages.Performances
         }
 
         public Models.Performances Performances { get; set; }
+        public List<Models.Categories> Categories { get; set; } = new List<Models.Categories>();
         public string returnToPage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
@@ -35,12 +36,18 @@ namespace TicketReservationSystem.Pages.Performances
             Performances = await Context.Performances
                 .Include(p => p.Theatre)
                 .Include(p => p.PerformanceDates)
+                .Include(p => p.PerformanceCategories)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Performances == null)
             {
                 return NotFound();
-            }
+            }                        
+
+            foreach (var item in Performances.PerformanceCategories)
+            {
+                Categories.Add(Context.Categories.FirstOrDefault(c => c.Id == item.CategoryId));
+            }            
 
             this.returnToPage = returnToPage;
             return Page();

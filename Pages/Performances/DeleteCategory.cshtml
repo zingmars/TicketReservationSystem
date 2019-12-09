@@ -1,0 +1,37 @@
+﻿@page
+@model TicketReservationSystem.Pages.Performances.DeleteCategoryModel
+
+@{
+    ViewData["Title"] = "DeleteCategory";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Vai Jūs tiešām vēlaties izdzēst šo kategoriju "@Model.PerformanceCategories.Performance.Name" izrādei?</h1>
+<br>
+<br>
+<div>    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Kategorija
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PerformanceCategories.Category.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Izrāde
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PerformanceCategories.Performance.Name)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="PerformanceCategories.PerformanceId" />
+        <input type="hidden" asp-for="PerformanceCategories.CategoryId" />
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <input type="submit" value="Dzēst" class="btn btn-danger" />
+            <a class="btn btn-secondary" role="button" asp-page="./IndexCategories" asp-route-id="@Model.PerformanceCategories.PerformanceId">Atpakaļ</a>
+        </div>
+    </form>
+</div>

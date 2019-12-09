@@ -1,0 +1,33 @@
+﻿@page
+@model TicketReservationSystem.Pages.Performances.CreateCategory
+
+@{
+    ViewData["Title"] = "CreatePerformanceCategory";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Pievienot izrādes "@Model.PerformanceName" kategoriju</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Kategorija
+                <select asp-for="PerformanceCategories.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Pievienot" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./IndexCategories" asp-route-id="@Model.PerformanceId">Atgriezties atpakaļ</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

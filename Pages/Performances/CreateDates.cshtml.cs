@@ -32,7 +32,9 @@ namespace TicketReservationSystem.Pages.Performances
             if (id == null) {
                 return NotFound();
             }
-            this.PerformanceId = id;
+
+            PerformanceId = id;
+            PerformanceName = Context.Performances.FirstOrDefault(p => p.Id == id).Name;
 
             return Page();
         }
@@ -40,6 +42,7 @@ namespace TicketReservationSystem.Pages.Performances
         [BindProperty]
         public Models.PerformanceDates PerformanceDates { get; set; }
         public string PerformanceId { get; set; } //TODO: Rename
+        public string PerformanceName { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

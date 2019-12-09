@@ -103,11 +103,12 @@
                 </div>
                 @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
                 {   
-                    <div class="btn-group" role="group" aria-label="Izvēlne" style="padding-top: 10px">
-                        <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
-                        <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
-                        <a role="button" asp-page="./IndexDates" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Izmainīt datumus"><i class="fas fa-calendar-alt"></i></a>
-                    </div>
+                <div class="btn-group" role="group" aria-label="Izvēlne" style="padding-top: 10px">
+                    <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
+                    <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
+                    <a role="button" asp-page="./IndexDates" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Izmainīt datumus"><i class="fas fa-calendar-alt"></i></a>
+                    <a role="button" asp-page="./IndexCategories" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Izmainīt kategorijas"><i class="fas fa-list"></i></a>
+                </div>
                 }
             </td>
         </tr>

@@ -19,16 +19,16 @@
             @Html.DisplayFor(model => model.Performances.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Description)
+            Apraksts
         </dt>
         <dd class="col-sm-10">
-            Apraksts
+            @Html.DisplayFor(model => model.Performances.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Performances.Price)
+            Cena
         </dt>
         <dd class="col-sm-10">
-            Cena
+            @Html.DisplayFor(model => model.Performances.Price)
         </dd>
         <dt class="col-sm-2">
             Teātris
@@ -40,7 +40,7 @@
 </div>
 @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
 {
-    <a class="btn btn-secondary" role="button" asp-page="./Edit" asp-route-id="@Model.Performances.Id">Rediģēt</a>    
+    <a class="btn btn-secondary" role="button" asp-page="./Edit" asp-route-id="@Model.Performances.Id">Rediģēt</a>
 }
 <br>
 <br>
@@ -48,7 +48,7 @@
 <p>
     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
     {
-        <a role="button" asp-page="./CreateDates" asp-route-id="@Model.Performances.Id" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot datumu"><i class="fas fa-plus"></i></a>        
+        <a role="button" asp-page="./CreateDates" asp-route-id="@Model.Performances.Id" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot datumu"><i class="fas fa-plus"></i></a>
     }
 </p>
 <div>
@@ -67,22 +67,59 @@
         <tbody>
             @foreach (var item in Model.Performances.PerformanceDates)
             {
-            <tr>
-                <td>
-                    @{ var startDate = item.Begins.ToString("dd/MM/yyyy HH:mm");
-                        var endDate = item.Ends.ToString("dd/MM/yyyy HH:mm");}
-                    @Html.DisplayFor(modelItem => startDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => endDate)
-                </td>
-                @if (item.Begins > DateTime.Now)
-                {
+                <tr>
                     <td>
-                        <a role="button" asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" class="btn btn-warning"><i class="fas fa-shopping-bag"></i> Pirkt</a>
+                        @{ var startDate = item.Begins.ToString("dd/MM/yyyy HH:mm");
+                            var endDate = item.Ends.ToString("dd/MM/yyyy HH:mm");}
+                        @Html.DisplayFor(modelItem => startDate)
                     </td>
-                }
+                    <td>
+                        @Html.DisplayFor(modelItem => endDate)
+                    </td>
+                    @if (item.Begins > DateTime.Now)
+                    {
+                        <td>
+                            <a role="button" asp-page="../Purchases/New" asp-route-PerformanceId="@item.PerformanceId" class="btn btn-warning"><i class="fas fa-shopping-bag"></i> Pirkt</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<h4>Izrādes kategorijas</h4>
+<p>
+    @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
+    {
+        <a role="button" asp-page="./CreateCategory" asp-route-id="@Model.Performances.Id" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Pievienot kategoriju"><i class="fas fa-plus"></i></a>
+    }
+</p>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nosaukums
+                </th>
+                <th>
+                    Apraksts
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>                        
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

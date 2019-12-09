@@ -32,6 +32,7 @@ namespace TicketReservationSystem.Pages.Performances
             if (!User.IsInRole(Constants.Bookkeeper) && !User.IsInRole(Constants.Administrator)) {
                 return NotFound();
             }
+
             if (id == null)
             {
                 return NotFound();
