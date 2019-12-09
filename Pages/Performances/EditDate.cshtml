@@ -6,7 +6,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Edit a date</h1>
+<h1>Rediģēt izrādes "@Model.PerformanceDate.Performance.Name" datumu</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,24 +15,24 @@
             <input type="hidden" asp-for="PerformanceDate.Id" />
             <input type="hidden" asp-for="PerformanceDate.PerformanceId" />
             <div class="form-group">
-                <label class="control-label">Begins</label>
+                Sākums
                 <input asp-for="PerformanceDate.Begins" class="form-control" />
                 <span asp-validation-for="PerformanceDate.Begins" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Ends</label>
+                Beigas
                 <input asp-for="PerformanceDate.Ends" class="form-control" />
                 <span asp-validation-for="PerformanceDate.Ends" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Saglabāt" class="btn btn-dark" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./IndexDates" asp-route-id="@Model.PerformanceDate.PerformanceId">Back to list</a>
+    <a asp-page="./IndexDates" asp-route-id="@Model.PerformanceDate.PerformanceId">Atgriezties atpakaļ</a>
 </div>
 
 @section Scripts {

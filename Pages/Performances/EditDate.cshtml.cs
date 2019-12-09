@@ -37,12 +37,16 @@ namespace TicketReservationSystem.Pages.Performances
                 return NotFound();
             }
 
-            PerformanceDate = await Context.PerformanceDates.FirstOrDefaultAsync(m => m.Id == id);
+            PerformanceDate = await Context.PerformanceDates
+                .Include(p => p.Performance)
+                .Include(p => p.Purchases)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (PerformanceDate == null)
             {
                 return NotFound();
             }
+
             return Page();
         }
 

@@ -49,8 +49,8 @@
                     }
                     @if (User.IsInRole(Constants.Bookkeeper) || User.IsInRole(Constants.Administrator))
                     {
-                        <a role="button" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
-                        <a role="button" asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
+                        <a role="button" asp-page="./EditDate" asp-route-id="@item.Id" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Rediģēt"><i class="far fa-edit"></i></a>
+                        <a role="button" asp-page="./DeleteDate" asp-route-id="@item.Id" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Dzēst"><i class="fas fa-trash-alt"></i></a>
                     }
                 </div>
             </td>
@@ -58,3 +58,6 @@
     }
     </tbody>
 </table>
+<div>
+    <a asp-page="./Index">Atgriezties atpakaļ</a>
+</div>
